@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.listy</groupId>
-	<artifactId>listy2</artifactId>
+	<artifactId>listy</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>listy2</name>
+	<name>listy</name>
 	<description>Listy Project</description>
 
 	<parent>
@@ -136,7 +136,7 @@
             <configuration>
               <server>BlueMix</server>
               <target>https://api.ng.bluemix.net</target>
-              <appname>listy2</appname>
+              <appname>listy</appname>
               <url>${web-url}</url>
               <org>${org}</org>
               <space>${space}</space>
