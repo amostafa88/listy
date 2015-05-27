@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="listyApp" dir="rtl">	
+
+  <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/> <!-- this will make sure to view the movile version in mobile and tablet version in tablet -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>AngularJS Listy</title>  
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+    
+    <link href="css/style.css" rel="stylesheet">
+    
+    <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+     <script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+     <script type="text/javascript" src="lib/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>   
+     <script type="text/javascript" src="js/filters.js"></script>	
+        
+      	<script type="text/javascript" src="i18n/angular-locale_ar-sa.js"></script>
+      	<script type="text/javascript" src="lib/localize/localize.js"></script>
+
+ 	    
+
+
+  </head>
+  
+  
+  <body >
+  
+    <!-- *******************************  App Naviagation ****************************** -->
+    <!-- ******************************************************************************* -->
+    
+    
+   <nav class="navbar navbar-default navbar-static-top" role="navigation" ng-controller="navCtrl" >
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+
+        <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Listy v0.3</a>
+      </div>
+    
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
+		<!-- user -->
+        <ul class="nav navbar-nav navbar-right">
+          	<li>
+          		<a href="#" ng-click="setEnglishLanguage()">English</a>
+          	</li>
+          	<li>
+          		<a href="#" ng-click="setArabicLanguage()">العربية</a>
+          	</li>
+    	
+      		<li dropdown>
+            	<a href="#" dropdown-toggle><span class="glyphicon glyphicon-user"><b class="caret"></b></a> 
+	            <ul class="dropdown-menu">
+	              <li><a href="#">Action</a></li>
+	              <li><a href="#">Another action</a></li>
+	              <li><a href="#">Something else here</a></li>
+	              <li><a href="#">Separated link</a></li>
+	              <li><a href="#">One more separated link</a></li>
+	            </ul>
+          	</li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </nav>
+
+    
+	<!--     <div ng-controller="DropdownCtrl">
+
+	    Single button using append-to-body
+	    <div class="btn-group" dropdown dropdown-append-to-body>
+	      <button type="button" class="btn pull-left btn-primary dropdown-toggle" dropdown-toggle>
+	        <span class="glyphicon glyphicon-user"></span><span class="caret"></span>
+	      </button>
+	      <ul class="dropdown-menu" role="menu">
+	        <li><a href="#" ng-click="selectAOption(choice)">Action</a></li>
+	        <li><a href="#" ng-click="selectAOption(choice)">Another action</a></li>
+	        <li><a href="#" ng-click="selectAOption(choice)">Something else here</a></li>
+	        <li class="divider"></li>
+	        <li><a href="#" ng-click="selectAOption(choice)">Separated link</a></li>	        
+	      </ul>
+	    </div>
+
+    	<hr />
+	</div>	 -->
+    
+    <!-- *******************************  App Collapsing Area ****************************** -->
+    <!-- ******************************************************************************* -->
+    
+	<div class="container" ng-controller="ToDoListCtrl" >
+	<div data-i18n="_Greeting_" style="margin-bottom: 15px;"></div>
+	
+
+	  <accordion close-others="false">
+	    <accordion-group ng-repeat="category in categories" ng-init="status.open = close" is-open="status.open">
+	      	 
+	      	 <accordion-heading>
+	           <span class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></span>
+	            <label class="category-title"> {{category.name.ar}} </label>
+	            <span class="pull-left label label-danger">5</span>
+	            <span class="pull-left badge">2</span>
+	        </accordion-heading>
+	        
+	        <!-- filter the items list for the current category it, searching in the items groceryCategories ids -->
+	        <ANY ng-hide="true">{{ currentGroceryCategoryItems = ( items | filter: { groceryCategories: { id : category.id }    }  )  }}</ANY>
+        	
+        	<div class="item-list" ng-init="selectedCount = 0">
+	        	<div class="row" ng-repeat="item in currentGroceryCategoryItems" ng-if="$index % 6 == 0" style="direction: rtl">
+	        	
+	        	  <!-- since our one row contains 4 items, we loop on the current row four items, the current item in the row will be in currentGroceryCategoryItems[i] -->
+				  <div class="col-centered col-xs-6 col-sm-4 col-md-2 col-lg-2" 
+				       ng-repeat="i in [$index, $index + 1, $index + 2, $index + 3, $index + 4, $index + 5]" 
+				       ng-if="currentGroceryCategoryItems[i] != null" style="direction: rtl">
+			         
+			         <!-- am item box -->
+			         <!-- check if the current gorecery item exist in the current grocery todo items list, if found, set the todo item in the groeceryToDoItem -->
+			         <ANY ng-hide="true">{{ groeceryToDoItem = ((currentGroceryToDo.groceryToDoItems | checkItemIdInItems: currentGroceryCategoryItems[i].id)[0]) }}</ANY>
+			         <div class="thumbnail item">
+						
+						<!-- selected model will be matching the check if the current item exist in the current GroceryToDo list which get updated by the toggleToDoItemSelection method that add / delte item to the todo list-->			         	
+						<ANY ng-hide="true">{{selected = (groeceryToDoItem != null)}}</ANY>
+						<div class="row">
+ 					        <div class="col-lg-12 col-md-12" >
+					          <a href="" >
+						             <img ng ng-click="toggleToDoItemSelection(currentGroceryToDo,currentGroceryCategoryItems[i])" ng-src="imgs/{{currentGroceryCategoryItems[i].name.en | lowercase }}.jpg" on-error-src="imgs/notfound.jpg" ng-class="{ 'item-image-selected' : selected}" style="padding: 4px 4px 4px 4px;">
+					          </a>
+					        </div>
+						</div>
+						<div class="row">
+					        <div class="col-lg-12 col-md-12">
+					          <label class="center-block btn media-item-title" ng-model="selected" ng-click="toggleToDoItemSelection(currentGroceryToDo,currentGroceryCategoryItems[i])" btn-checkbox>{{currentGroceryCategoryItems[i].name.ar}}</label>
+					        </div>
+					    </div>
+					    <div class="row">
+    						<div class="col-lg-3 col-md-3">
+		       					<button ng-click="toggle = !toggle" class="pull-left media-item-button fa fa-pencil"></button>
+		       				</div>
+		       				<div class="col-lg-3 col-md-3">
+		       					<span></span>
+		       				</div>
+		       				<div class="col-lg-3 col-md-3">
+		       					<span></span>
+		       				</div>
+		       				<div class="col-lg-3 col-md-3">
+		       				    <label class="pull-right fancy-checkbox">
+							        <input type="checkbox"/>
+							        <span></span>
+							    </label>	
+							</div>
+					    </div>
+				
+				      
+
+						
+						
+						
+				     </div>
+				    
+				  </div>
+				</div>
+			</div>
+
+             <!-- ~ Nested Items -->
+	    </accordion-group>
+	  </accordion>
+	</div>
+
+
+	<!-- *******************************  Footer          ****************************** -->
+    <!-- ******************************************************************************* -->
+<!-- 	<div class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container navbar-bottom-listy">
+			<p class="navbar-text">Site built by Ahmed Mostafa</p>
+			<a class="navbar-btn btn btn-danger pull-right">Subscribe in youtube</a>
+			
+		</div>
+	</div> -->
+	
+	
+
+
+
+
+  </body>
+</html>

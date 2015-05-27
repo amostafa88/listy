@@ -1,0 +1,86 @@
+<!doctype html>
+<html ng-app="plunker">
+
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.4.0.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+  </head>
+  <body>
+<div ng-controller="AccordionDemoCtrl">
+	<div class="panel panel-default">
+	    <div class="panel-body">
+	        <accordion close-others="false">
+	            <accordion-group is-open="item.open" ng-repeat="item in filterGroup | filter:searchText">
+	                <accordion-heading>
+	                    <!-- <input type="checkbox" class="pull-left glyphicon" ng-click="filterHeaderClick(item.title, $event)" ng-model="master" value="{{item.title}}"/> -->
+	                    
+	                    <span class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': item.open, 'glyphicon-chevron-up': !item.open}"></span>
+	                    <span class="pull-left glyphicon glyphicon-chevron-down"></span>
+	                    <span class="glyphicon glyphicon-user">
+	                    {{ item.title }}
+	                    {{ item.open }}
+	                     <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+	                </accordion-heading>
+	                <div ng-repeat="data in item.content">
+	                    <input type="checkbox" class="pull-left glyphicon" ng-click="filterSubitemClick(data, item.title, $event)" ng-checked="master" value="{{data}}" />{{data}}
+	                </div>
+	            </accordion-group>
+	        </accordion>
+	
+	    </div>
+	</div>
+	
+	
+<script>angular.module('plunker', ['ui.bootstrap']);
+function AccordionDemoCtrl($scope) {
+
+
+	$scope.filterGroup = [{
+	    title: "Task Type",
+	    content: ["Task Type 1", "Task Type 2", "Task Type 3", "Task Type 4"],
+	    open: false,
+	    checked: false
+
+	}, {
+	    title: "Connectors",
+	    content: ["c1", "c2"],
+	    open: false,
+	    checked: false
+	}, {
+	    title: "Schedules",
+	    content: ["s1", "s2"],
+	    open: false,
+	    checked: false
+	}, {
+	    title: "Secure Agents",
+	    content: ["a1", "zmr"],
+	    open: false,
+	    checked: false
+	}];
+	
+	}
+
+	angular.module('plunker')
+	.directive('collapseall', [
+	  function() {
+	    return {
+	      restrict: 'A',
+	      scope: {
+	        collapseall: '='
+	      },
+	      link: function(scope, elem, attrs) {
+	        scope.$watch('collapseall', function(newval, oldval) {
+	          scope.isOpen = newval;
+	        })
+	      }
+	    }
+	    
+	  }
+	])</script>
+	
+<script>
+</script>
+</div>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html ng-app="ui.bootstrap.demo">
+  <head>
+    <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+    <script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+
+<div class="container" ng-controller="AccordionDemoCtrl">
+
+
+  <accordion close-others="false">
+    <accordion-group heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+      This content is straight in the template.
+    </accordion-group>
+    <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+      {{group.content}}
+    </accordion-group>
+    <accordion-group heading="Dynamic Body Content">
+      <p>The body of the accordion group grows to fit the contents</p>
+        <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
+        <div ng-repeat="item in items">{{item}}</div>
+    </accordion-group>
+    <accordion-group is-open="status.open">
+        <accordion-heading>
+           <span class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></span>
+            I can have markup, too!
+            <span class="pull-right label label-danger">5</span>
+        </accordion-heading>
+        This is just some content to illustrate fancy headings.
+    </accordion-group>
+  </accordion>
+  
+  
+  <script type="text/javascript">
+  angular.module('ui.bootstrap.demo', ['ui.bootstrap']);
+  angular.module('ui.bootstrap.demo').controller('AccordionDemoCtrl', function ($scope) {
+    $scope.oneAtATime = true;
+
+    $scope.groups = [
+      {
+        title: 'Dynamic Group Header - 1',
+        content: 'Dynamic Group Body - 1'
+      },
+      {
+        title: 'Dynamic Group Header - 2',
+        content: 'Dynamic Group Body - 2'
+      }
+    ];
+
+    $scope.items = ['Item 1', 'Item 2', 'Item 3'];
+
+    $scope.addItem = function() {
+      var newItemNo = $scope.items.length + 1;
+      $scope.items.push('Item ' + newItemNo);
+    };
+
+    $scope.status = {
+      isFirstOpen: true,
+      isFirstDisabled: false
+    };
+  });
+  </script>
+</div>
+  </body>
+</html>

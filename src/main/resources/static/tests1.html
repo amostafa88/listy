@@ -1,0 +1,52 @@
+<!doctype html>
+<html ng-app="plunker">
+
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.4.0.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+  </head>
+  <body>
+
+<div class="container_12" ng-controller="AccordionDemoCtrl">
+	<div data-ng-repeat="m in results">
+	    <div class="stuff_in_the_middle">
+<!-- 	    <accordion id="accordion_{{$index+((currentPage-1)*20)+1}}" close-others="false"> -->
+	            <accordion-group heading="{{m}}" collapseall="opened"> 
+	            </accordion-group>
+<!-- 	            <accordion-group heading="{{m}}" collapseall="opened">
+	            </accordion-group>
+	            <accordion-group heading="{{m}}" collapseall="opened">
+	            </accordion-group>
+	        </accordion> -->
+	        <!-- <span class="btn" id="toggle_{{$index+((currentPage-1)*20)+1}}" ng-click="opened=!opened">Toggle groups</span> -->
+	    </div>
+	</div>
+
+<script>angular.module('plunker', ['ui.bootstrap']);
+function AccordionDemoCtrl($scope) {
+	  $scope.currentPage = 1;
+	  $scope.results = ['Item 1', 'Item 2', 'Item 3'];
+	  $scope.opened = false;
+	}
+
+	angular.module('plunker')
+	.directive('collapseall', [
+	  function() {
+	    return {
+	      restrict: 'A',
+	      scope: {
+	        collapseall: '='
+	      },
+	      link: function(scope, elem, attrs) {
+	        scope.$watch('collapseall', function(newval, oldval) {
+	          scope.isOpen = newval;
+	        })
+	      }
+	    }
+	    
+	  }
+	])</script>
+</div>
+  </body>
+</html>

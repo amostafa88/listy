@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">	
+
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>AngularJS Listy</title>  
+    <link rel="stylesheet" href="lib/bootstrap-css-only/css/bootstrap.min.css" />
+    
+
+        
+  </head>
+  
+  
+  <body ng-app="listyApp">
+  
+
+     
+
+
+    <div class="container" ng-controller="ToDoListCtrl">
+    
+      <div class="page-header">
+        <h1>List</h1>
+      </div>
+      <div class="alert alert-info" role="alert" ng-hide="items && items.length > 0">
+        There are no items yet..
+      </div>
+      Total Items count = {{items.length}},
+      Current ToDo ID =  {{currentGroceryToDo.id}}, To Do Length = {{currentGroceryToDo.groceryToDoItems.length}}
+     
+     
+<!--    	<ANY ng-hide="true"> {{currentGroceryCart = ( groceryCarts | filter: { id: '554e0a422ab818ea4f47c0c6' }  )[0]  }}</ANY>
+     {{currentGroceryCart.groceryCartItems.length}} -->
+      
+      <!-- {{currentGroceryCartsItems.length }} -->
+      
+      
+      <form class="form-horizontal" role="form" ng-submit="addItem(newItem)">
+      
+      	<!-- 
+      	*************************************************************
+      	Item row, will have checbox, whenever changed will call updateItem, 
+      	and delete buttong, that when clicked will call the deleteItem 
+      	************************************************************* 
+      	-->
+<!-- 
+        <div ng-repeat="item in items">
+          <div>
+            <label>
+              <input type="checkbox" ng-checked="(groceryCarts[0].groceryCartItems | checkCartItems: item.id ).length == 1" ng-model="dd" ng-change="updateItem(item)"/> {{item.name.en}} / {{item.groceryCategories[0].name.en}}
+            </label>
+          </div>
+          <div>
+          	{{(groceryCarts[0].groceryCartItems | checkCartItems: item.id)[0].quantity }}
+          </div>          
+          <div>
+          	{{(groceryCarts[0].groceryCartItems | checkCartItems: item.id)[0].comments }}
+          </div>
+          <div class="col-xs-3">
+            <button class="pull-right btn btn-danger" type="button" title="Delete" ng-click="deleteItem(item)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </div>
+        </div> -->
+        
+           <table>
+		      <tr>
+		        <th width="40">select</th>
+		        <th width="160">Item</a></th>
+		        <th width="80">Quantity</th>
+		        <th width="190">Comments</th>
+		        <th width="190">checkbox value</th>
+		        <th width="190">for test</th>
+		      </tr>
+		      <tr ng-repeat="item in items">
+<!-- 	     	 	<td ng-hide="true">{{ cartItem =  ((currentGroceryCart.groceryCartItems | checkCartItems: item.id)[0])  }}</td>
+	     	 	<td ng-hide="true">{{ selection = (cartItem != null)  }}</td> -->
+		        <td><input type="checkbox" ng-checked="((currentGroceryToDo.groceryToDoItems | checkItemIdInItems: item.id)[0]) != null" ng-model="itemCheckBoxValue" ng-click="toggleToDoItemSelection(currentGroceryToDo,item)"/></td>
+		        <td>{{item.name.en}} / {{item.groceryCategories[0].name.en}}</td>
+		        <td>{{((currentGroceryToDo.groceryToDoItems | checkItemIdInItems: item.id)[0]).quantity }}</td>
+		        <td>{{((currentGroceryToDo.groceryToDoItems | checkItemIdInItems: item.id)[0]).comments }}</td>
+		        <td>{{itemCheckBoxValue }}</td>
+		        <td>
+		           <label class="btn btn-primary" ng-model="bigData.breakfast" btn-checkbox> Breakfast </label>
+		        </td>
+		      </tr>
+		    </table>
+
+
+	    
+       	<!-- 
+      	*************************************************************
+		The new item section
+      	************************************************************* 
+      	-->       
+<!--         <hr/>
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="newItem" placeholder="Enter the name ..." />
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit" ng-disabled="!newItem" title="Add">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </span>
+        </div> -->
+        
+      </form>
+      
+    </div>
+    
+    
+    <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+	<script type="text/javascript" src="i18n/angular-locale_ar-sa.js"></script>
+
+    <script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+ 	<script type="text/javascript" src="lib/angular-resource/angular-resource.js"></script>
+ 	
+ 	<script type="text/javascript" src="lib/localize/localize.js"></script>    
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>
+    <script type="text/javascript" src="js/filters.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,12 @@
+---
+applications:
+- name: listy2
+  memory: 384M
+  instances: 1
+  path: target/listy2-0.0.1-SNAPSHOT.war
+  timeout: 180
+  buildpack: https://github.com/cloudfoundry/java-buildpack
+  services: 
+  - listy-mongo
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
