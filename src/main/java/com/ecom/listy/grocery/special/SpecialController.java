@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.neo4j.cypher.internal.compiler.v2_1.planner.logical.steps.applyOptional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,28 +20,36 @@ import com.ecom.listy.grocery.cart.GroceryCartItem;
 import com.ecom.listy.grocery.cart.GroceryCartRepository;
 import com.ecom.listy.grocery.item.GroceryItem;
 import com.ecom.listy.grocery.item.GroceryItemRepository;
+import com.ecom.listy.util.LoadDB_FromExcel;
 
 @RestController
-@RequestMapping("/api/GrocerySpecial")
-public class GrocerySpecialController {
+public class SpecialController {
 	
 	
 	@Autowired
-	private SpecialRepository specialRepository;
+	private GroceryItemRepository groceryItemRepository;
 
-    
-    @RequestMapping(value="/ItemsInCart/{id}", method=RequestMethod.GET)
-    List<String> itemsInCartId(@PathVariable("id") String id) {
-    	return specialRepository.getItemsInCart(id);
-	    //return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+	@Autowired
+	private LoadDB_FromExcel loadDB_FromExcel;
+	
+	
+    @RequestMapping(value=ApiUrls.SPECIAL_RELOAD_DB, method=RequestMethod.GET)
+    public ResponseEntity<Boolean> itemsInCartId() {
+
+		System.out.println("reloading database ...");
+		loadDB_FromExcel.dbLoads();
+	
+		System.out.println("reload done, items :"+groceryItemRepository.findAll().size());
+		
+		return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
     }
     
 
 	
-	@RequestMapping(value="/AddItemsToCart/{id}", method=RequestMethod.POST)
+/*	@RequestMapping(value="/AddItemsToCart/{id}", method=RequestMethod.POST)
 	public ResponseEntity<Boolean> create(@PathVariable("id") String id, @RequestBody @Valid GroceryCartItem groceryCartItem) {
 		specialRepository.saveToCartId(id, groceryCartItem);
 		return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
-	}
+	}*/
 	
 }

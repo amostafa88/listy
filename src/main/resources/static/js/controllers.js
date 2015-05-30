@@ -58,8 +58,8 @@ listyControllers.controller('AccordionDemoCtrl', function ($scope) {
 /**************************************
  * UI Handling Controllers
  **************************************/
-listyControllers.controller('navCtrl', ['$scope', 'localize',
-	function($scope, localize) {
+listyControllers.controller('navCtrl', ['$scope', 'localize','Special_Reload',
+	function($scope, localize,Special_Reload) {
 	
 	localize.setLanguage('ar-SA');
 	
@@ -70,6 +70,11 @@ listyControllers.controller('navCtrl', ['$scope', 'localize',
     $scope.setArabicLanguage = function() {
         localize.setLanguage('ar-SA');
     };
+    
+	//++++++++++++++++++=
+	$scope.reloadDb = function() {
+		Special_Reload.get();
+	}
 
 }]);
 
@@ -228,6 +233,8 @@ listyControllers.controller('ToDoListCtrl',
 				//}
 
 			}
+			
+
 
 		}]);
 

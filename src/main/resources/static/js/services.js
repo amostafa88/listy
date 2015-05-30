@@ -13,10 +13,14 @@ var GROCERY_CART		= 	"/api/GroceryCart/:cartId";
 //var GROCERY_CART_ITEMS	= 	"/api/GroceryCart/:cartId/GroceryCartItem";
 var GROCERY_CART_ITEM	= 	"/api/GroceryCart/:cartId/GroceryCartItem/:itemId";
 
-
-
 var GROCERY_TODO		= 	"/api/GroceryToDo/:todoId";
 var GROCERY_TODO_ITEM	= 	"/api/GroceryToDo/:todoId/GroceryToDoItem/:itemId";
+
+
+
+var SPECIAL_RELOAD_DB	= 	"/api/ReloadDb";
+
+
 
 	//************ Grocery Category
 	listyServices.factory('GroceryCategory', ['$resource',function($resource){
@@ -81,7 +85,13 @@ var GROCERY_TODO_ITEM	= 	"/api/GroceryToDo/:todoId/GroceryToDoItem/:itemId";
 	});
 	
 	
-	
+	//************ Special 
+	listyServices.factory('Special_Reload', function ($resource) {
+		
+	    return $resource(SPECIAL_RELOAD_DB,{}, {
+	    	get: { method: 'GET' },
+		   });
+	});	
 	
 	
 	
