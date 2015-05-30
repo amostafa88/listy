@@ -7,6 +7,9 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 interface GroceryToDoRepositoryCustom {
 
-	public GroceryToDoItem saveToToDoId(String id,GroceryToDoItem groceryToDoItem);
-	public void deleteItemFromToDo(String toDoId,String itemId);
+	public GroceryToDoItem addNewItem(String id,GroceryToDoItem groceryToDoItem);
+	public void updateItem(String toDoId,GroceryToDoItem groceryToDoItem);
+	
+	
+	public void unSelectItem(String toDoId,String itemId);
 }

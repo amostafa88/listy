@@ -121,20 +121,20 @@ public class LoadDB {
 		
 
 		//now load a Grocery ToDo with items
-			GroceryToDoItem todoItem = new GroceryToDoItem(2,"only red sold ones, no yellow",tomato.getId());
-			GroceryToDoItem todoItem1 = new GroceryToDoItem(2,"Green apple",apple.getId());
-		GroceryToDo gToDo = new GroceryToDo(true, 2,4,new ArrayList<GroceryToDoItem>(Arrays.asList(todoItem,todoItem1)));
-			//groceryToDoItemRepository.save(todoItem);
-			//groceryToDoItemRepository.save(todoItem1);
-		groceryToDoRepository.save(gToDo);
-	
-			//now load a Grocery Cart with items
-			GroceryToDoItem todoItem3 = new GroceryToDoItem(2,"only red sold ones, no yellow",apple.getId());
-			GroceryToDoItem todoItem4 = new GroceryToDoItem(2,"Green apple",grape.getId());
-		GroceryToDo gToDo2 = new GroceryToDo(true, 2,4,new ArrayList<GroceryToDoItem>(Arrays.asList(todoItem3,todoItem4)));
-			//groceryCartItemRepository.save(gItem3);
-			//groceryCartItemRepository.save(gItem2);
-		groceryToDoRepository.save(gToDo2);		
+		GroceryToDoItem todoItem = new GroceryToDoItem(true,2,"only red sold ones, no yellow",tomato.getId(),tomato.getGroceryCategories().get(0).getId());
+		GroceryToDoItem todoItem1 = new GroceryToDoItem(true,2,"Green apple",apple.getId(),apple.getGroceryCategories().get(0).getId());
+	GroceryToDo gToDo = new GroceryToDo(true, 2,4,new ArrayList<GroceryToDoItem>(Arrays.asList(todoItem,todoItem1)));
+		//groceryToDoItemRepository.save(todoItem);
+		//groceryToDoItemRepository.save(todoItem1);
+	groceryToDoRepository.save(gToDo);
+
+/*			//now load a Grocery Cart with items
+		GroceryToDoItem todoItem3 = new GroceryToDoItem(true,2,"only red sold ones, no yellow",apple.getId(),apple.getGroceryCategories().get(0).getId());
+		GroceryToDoItem todoItem4 = new GroceryToDoItem(true,2,"Green apple",grape.getId(),grape.getGroceryCategories().get(0).getId());
+	GroceryToDo gToDo2 = new GroceryToDo(true, 2,4,new ArrayList<GroceryToDoItem>(Arrays.asList(todoItem3,todoItem4)));
+		//groceryCartItemRepository.save(gItem3);
+		//groceryCartItemRepository.save(gItem2);
+	groceryToDoRepository.save(gToDo2);	*/		
 		
 		
 		System.out.println("Saved");

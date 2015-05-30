@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import com.ecom.CartItem;
+import com.ecom.ToDoItem;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
@@ -17,31 +18,40 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author amostafa
  *
  */
-public class GroceryToDoItem extends CartItem {
+public class GroceryToDoItem extends ToDoItem {
 	
-	//@DBRef
+	
 	@NotNull(message = "Cart item can't contain empty item id.")
 	//@Length(min=0, message = "Cart item can't contain empty item id." )
 	private String groceryItemId;
+	
+	protected boolean selected;
+	
+	private String groceryCategoryId;
 
+	
 
 	public GroceryToDoItem() {
 		super();
 	}
 
-	public GroceryToDoItem(double quantity, String comments,String groceryItemId) {
+	public GroceryToDoItem(boolean selected, double quantity, String comments,String groceryItemId, String groceryCategoryId) {
 		super(quantity, comments);
+		this.selected = selected;
 		this.groceryItemId = groceryItemId;
+		this.groceryCategoryId=groceryCategoryId;
 	}
 
+
+	
 
 	@Override
 	public String toString() {
 		return "GroceryToDoItem [groceryItemId=" + groceryItemId
-				+ ", quantity=" + quantity + ", comments=" + comments + "]";
+				+ ", selected=" + selected + ", groceryCategoryId="
+				+ groceryCategoryId + ", quantity=" + quantity + ", comments="
+				+ comments + "]";
 	}
-	
-	
 
 	public String getGroceryItemId() {
 		return groceryItemId;
@@ -55,6 +65,22 @@ public class GroceryToDoItem extends CartItem {
 	public boolean equals(Object obj) {
 		return (this.groceryItemId.equals(((GroceryToDoItem) obj).groceryItemId));
 	}
+
 	
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
+	public String getGroceryCategoryId() {
+		return groceryCategoryId;
+	}
+
+	public void setGroceryCategoryId(String groceryCategoryId) {
+		this.groceryCategoryId = groceryCategoryId;
+	}
 
 }

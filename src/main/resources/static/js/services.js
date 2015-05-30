@@ -74,8 +74,9 @@ var GROCERY_TODO_ITEM	= 	"/api/GroceryToDo/:todoId/GroceryToDoItem/:itemId";
 	listyServices.factory('GroceryToDo_Item', function ($resource) {
 		
 	    return $resource(GROCERY_TODO_ITEM,{}, {
-		    create: {method:'PUT', params:{todoId: '@todoId'}},
-	    	del: { method: 'DELETE', params: {todoId: '@todoId',itemId: '@itemId'} }
+		    create: {method:'POST', params:{todoId: '@todoId'}},
+			update: {method:'PUT', params:{todoId: '@todoId'}},		    
+	    	/*del: { method: 'DELETE', params: {todoId: '@todoId',itemId: '@itemId'} }*/
 		   });
 	});
 	

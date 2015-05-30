@@ -117,12 +117,16 @@ listyControllers.controller('ToDoListCtrl',
 				var todoItem = new GroceryToDo_Item();
 				//cartItem.quantity = 1;
 				//cartItem.comments = "please work";
+				todoItem.selected = true;
 				todoItem.groceryItemId = item.id;
+				console.log("cat : "+item.groceryCategories[0].id)
+				todoItem.groceryCategoryId = item.groceryCategories[0].id;
 				console.log("todo.id="+todo.id)
 				todoItem.$create(
 						{todoId:todo.id}, //arguments 
 						function(response){
 							//on success call back
+							todoItem.selected = true;
 							$scope.currentGroceryToDo.groceryToDoItems.push(todoItem);
 							console.log("Item added : "+JSON.stringify(response.groceryItemId));
 
@@ -131,8 +135,38 @@ listyControllers.controller('ToDoListCtrl',
 							console.log("Faild to add item, error json : "+ JSON.stringify(response.data));
 						});
 			};
+			//##############  Revese ToDo item Selection
+			$scope.reverseToDoItemSelection = function(todo,item) {
+
+				var todoItem = new GroceryToDo_Item();
+				//cartItem.quantity = 1;
+				//cartItem.comments = "please work";
+				todoItem.groceryItemId = item.groceryItemId;
+				todoItem.groceryCategoryId = item.groceryCategoryId;
+				console.log("todo item id :"+todoItem.groceryItemId);
+				console.log("todo selected before inverse :"+item.selected);
+				todoItem.selected = !item.selected;
+				console.log("todo selected after inverse :"+todoItem.selected);
+				//console.log("todo.id="+todo.id)
+				todoItem.$update(
+						{ todoId: todo.id }, //arguments 
+						function(response){
+							//on success call back
+							// to do the update we first remove the item 
+							todo.groceryToDoItems.splice(todo.groceryToDoItems.indexOf(item), 1);
+							//then update its selected 
+							item.selected = !item.selected;
+							//and then push it back
+							$scope.currentGroceryToDo.groceryToDoItems.push(item);
+							console.log("Item : "+JSON.stringify(response.groceryItemId) +" is now " + item.selected);
+
+						}, function(response) {
+							//on failure call back
+							console.log("Faild to add item, error json : "+ JSON.stringify(response.data));
+						});
+			};
 			//##############  Delete Cart Item. 
-			$scope.deleteToDoItem = function(todo,item) {
+/*			$scope.deleteToDoItem = function(todo,item) {
 
 				console.log("Delete cart item id :"+item.groceryItemId)
 
@@ -140,20 +174,25 @@ listyControllers.controller('ToDoListCtrl',
 						{ todoId: todo.id, itemId: item.groceryItemId },
 						function(response){
 							//on success call back
+							// to do the update we first remove the item 
 							todo.groceryToDoItems.splice(todo.groceryToDoItems.indexOf(item), 1);
-							console.log('Item removed.');
+							//then update its selected
+							todoItem.selected = false;
+							//and then push it back
+							$scope.currentGroceryToDo.groceryToDoItems.push(todoItem);							
+							console.log('Item unselected.');
 						}, function(response) {
 							//on failure call back
 							console.log("Faild to delete item, error json : "+ JSON.stringify(response.data));
 						});
-			};
+			};*/
 
 			//############## Toggle ToDo Item Selection, Will add / Remove Cart Items from a Cart 
 			$scope.toggleToDoItemSelection = function(todo,item) {
 
 				console.log("Checking todo items for id = "+item.id);
-				console.log("todo Item size="+todo.length);
-				console.log("todo Item id="+todo.id);
+				/*console.log("todo Items size="+todo.length);*/
+				console.log("todo id="+todo.id);
 				var todoItem = $filter('checkItemIdInItems')(todo.groceryToDoItems, item.id);
 
 
@@ -168,13 +207,19 @@ listyControllers.controller('ToDoListCtrl',
 					$scope.addItemToToDo(todo,item);
 					//console.log("Item added to the todo items list.");
 				} 
-
-				if (todoItem[0] !=null) {//exist, so we delete it:
+				
+				if (todoItem[0] != null){//the item exist, so i will reverse its selected in the front end and in the back end.
+					console.log("Item exists in todo, and it is "+ todoItem[0].selected +"... will reverse that.");
+					$scope.reverseToDoItemSelection(todo,todoItem[0]);
+					//console.log("Item added to the todo items list.");
+				} 				
+				
+/*				if (todoItem[0] !=null && todoItem[0].selected == true) {//exist and was selected, so we delete it:
 					console.log('Item exists in the todo ... removing it.');
 					$scope.deleteToDoItem(todo, todoItem[0]);
 					//console.log("Item removed from the cart items list.");
-
-				}
+				}*/
+				
 				
 				//printing all current cart item
 				//console.log("cart Items size="+cart.groceryCartItems.length);

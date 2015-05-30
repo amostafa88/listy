@@ -157,8 +157,11 @@ background-image: url("imgs/red-basket.jpg");
             box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);/*no shadows*/
 }
 
-.media-item-title.focus,
-.media-item-title.hover,
+.media-item-title.hover{
+	
+	 background: #c0c0c0;
+}
+
 .media-item-title.active{
     -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
             box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);/*no shadows*/
@@ -166,8 +169,16 @@ background-image: url("imgs/red-basket.jpg");
     background: #ff9900; /*checked color*/
    	color:white;
    	border-radius: 0px;
-    
+   	
+	    -webkit-transition:background-color 150ms ease-in;
+	-moz-transition:background-color 150ms ease-in;
+	-ms-transition:background-color 150ms ease-in;
+	-o-transition:background-color 150ms ease-in;
+	transition:background-color 150ms ease-in;
 }
+
+
+
 
 .item-image-selected{
 	/* padding: 2px 2px 2px 2px; */
@@ -278,30 +289,33 @@ background-image: url("imgs/red-basket.jpg");
 .button-checkbox input[type=checkbox] {display:none;}
 
 
+
 .button-checkbox span {
-background-color:#373740;
+background-color:#c0c0c0;
 -webkit-border-radius:4px;
 -moz-border-radius:4px;
 border-radius:4px;
-font-weight:700;
-color:#FFF;
-font-size:.85em;
-letter-spacing:4px;
+/* font-weight:700; */
+color:#ffffff;
+
+/* font-size:.85em; */
+/* letter-spacing:4px; */
 text-decoration:none;
-font-family:sans-serif;
+/* font-family:sans-serif; */
 text-align:center;
-width:260px;
+/* width:260px; */
 padding: 20px 0;
 cursor:pointer;
 display:block;
 margin: 0 auto;
--webkit-transition:background-color 150ms ease-in;
+/* -webkit-transition:background-color 150ms ease-in;
 -moz-transition:background-color 150ms ease-in;
 -ms-transition:background-color 150ms ease-in;
 -o-transition:background-color 150ms ease-in;
-transition:background-color 150ms ease-in;
+transition:background-color 150ms ease-in; */
 }
 
+ 
 .button-checkbox span:hover {
 background-color:#ff5847;
 }
@@ -312,21 +326,29 @@ text-decoration:none;
 -webkit-border-radius:4px;
 -moz-border-radius:4px;
 border-radius:4px;
-background:#ff5847 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAaCAYAAACgoey0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAX9JREFUeNpi+P//PwMNsS4QbwBiLnQ5WlqqAsRP/0PARiBmoYfFkkB8+z8qWALEjLS0mB+IL/3HDibSymJQXB7/jx/UgNSCvU4lwAbEG4DYkwi1WUxUspQZiOcRaSkIWOAKMk0Sg3jaf+IBOIVjMyQWiH8DsR+RljaTYOkBWJ5GNwRk2R+ooh9A7ETA0jwSLL0ATfEYqRpkyVc0xR+A2AyHpdFA/I9IS0F5WhRbAWIEtQQbeAXE6lhC5jeRlj4GYgVsRaYK1HBCmmWgmuyxhAwu8BpaXjNgs/gYkYbcAGIXPCGDDkCOM8eVPkCEFhE+JhX8BGJnfAkTxgC57BOVLAXlihBC2RA9Vf+k0FJQKk8nJv+jCwQi5WNyQAWxpR02wRQS8icy6CKlmMUlUUGipfOQK3lKLAbhdhIKfWZS6258kiAfzCZg6V4gZiOn0UBIAcgn63BYehK50Ke2xQxQH+3FUoqJUtJMIlYhLxAfxVJu09xiWENuMxCrUaNhCBBgAOAVfjALa5TLAAAAAElFTkSuQmCC) no-repeat 7% center;
-background-size:15px 13px;
+
+/* background:#ff5847 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAaCAYAAACgoey0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAX9JREFUeNpi+P//PwMNsS4QbwBiLnQ5WlqqAsRP/0PARiBmoYfFkkB8+z8qWALEjLS0mB+IL/3HDibSymJQXB7/jx/UgNSCvU4lwAbEG4DYkwi1WUxUspQZiOcRaSkIWOAKMk0Sg3jaf+IBOIVjMyQWiH8DsR+RljaTYOkBWJ5GNwRk2R+ooh9A7ETA0jwSLL0ATfEYqRpkyVc0xR+A2AyHpdFA/I9IS0F5WhRbAWIEtQQbeAXE6lhC5jeRlj4GYgVsRaYK1HBCmmWgmuyxhAwu8BpaXjNgs/gYkYbcAGIXPCGDDkCOM8eVPkCEFhE+JhX8BGJnfAkTxgC57BOVLAXlihBC2RA9Vf+k0FJQKk8nJv+jCwQi5WNyQAWxpR02wRQS8icy6CKlmMUlUUGipfOQK3lKLAbhdhIKfWZS6258kiAfzCZg6V4gZiOn0UBIAcgn63BYehK50Ke2xQxQH+3FUoqJUtJMIlYhLxAfxVJu09xiWENuMxCrUaNhCBBgAOAVfjALa5TLAAAAAElFTkSuQmCC) no-repeat 7% center; */
+
+ background-size:15px 13px;
 }
 
 .button-checkbox input[type=checkbox]:checked:hover + span {
 background-color:#dd5244;
 color:rgba(255,255,255,0.5);
+
 text-decoration:none;
 -webkit-border-radius:4px;
 -moz-border-radius:4px;
 border-radius:4px;
-background:#dd5244 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAS5JREFUeNq8110OgjAMAGBGvIY3VESjt9jPg95PT+LccBIZ7dYOWJPGB+g+Ymg3hLW2QeLkcu/y2pSFdvl0eQevehjI3uXbfkMh96TShFq/xhG6J4faAtxEtSBOQTm4QWpnOBWl4CZT69fuYpiCpnBDrB1xLhrjgoFO8F1oGcFslUv4bV32zFoxmOHJta0XMn65dC0UaiddA8UGiN4axeC1cUkdmWviEls/NwL1FqjPNtNvoimPdC3yRCUTiTXbt0R/oSnw2iiK10BBvBY6w2uiE3xJr8oFtcrvxy/fVcyeVdGx98yotcOxN/znHeMUIhdMOG8c4reagssF43VEoT5O4ZJwvNUUFJtcEE5BMXyGpnanf5yDxjiI+hSJj7YunEBvhbuTCh9tD+jiR4ABAJ0SrJgNr1UAAAAAAElFTkSuQmCC) no-repeat 7% center;
-background-size:15px 15px;
+/* background:#dd5244 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAS5JREFUeNq8110OgjAMAGBGvIY3VESjt9jPg95PT+LccBIZ7dYOWJPGB+g+Ymg3hLW2QeLkcu/y2pSFdvl0eQevehjI3uXbfkMh96TShFq/xhG6J4faAtxEtSBOQTm4QWpnOBWl4CZT69fuYpiCpnBDrB1xLhrjgoFO8F1oGcFslUv4bV32zFoxmOHJta0XMn65dC0UaiddA8UGiN4axeC1cUkdmWviEls/NwL1FqjPNtNvoimPdC3yRCUTiTXbt0R/oSnw2iiK10BBvBY6w2uiE3xJr8oFtcrvxy/fVcyeVdGx98yotcOxN/znHeMUIhdMOG8c4reagssF43VEoT5O4ZJwvNUUFJtcEE5BMXyGpnanf5yDxjiI+hSJj7YunEBvhbuTCh9tD+jiR4ABAJ0SrJgNr1UAAAAAAElFTkSuQmCC) no-repeat 7% center; */
+
+ background-size:15px 15px;
 }
 
+.button-checkbox span:before  {
+
+color:#ffff00;
+}
 /*
 *********************
 *	Site - Footer

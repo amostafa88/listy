@@ -99,13 +99,18 @@
 	
 
 	  <accordion close-others="false">
-	    <accordion-group ng-repeat="category in categories" ng-init="status.open = close" is-open="status.open">
+	    <accordion-group ng-repeat="category in categories" ng-init="status.open = true" is-open="status.open">
+	  	 
+	      	 <ANY ng-hide="true">{{ countOfSelectedToDoItemsInTheGruop =  (currentGroceryToDo.groceryToDoItems | filter: { groceryCategoryId : category.id, selected : true }).length }}</ANY>
 	      	 
 	      	 <accordion-heading>
 	           <span class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></span>
 	            <label class="category-title"> {{category.name.ar}} </label>
-	            <span class="pull-left label label-danger">5</span>
-	            <span class="pull-left badge">2</span>
+	            <ANY ng-if="countOfSelectedToDoItemsInTheGruop != 0">
+				    <span class="pull-left label label-danger">{{countOfSelectedToDoItemsInTheGruop}}</span>
+				</ANY>
+	           
+	            <!-- <span class="pull-left badge">2</span> -->
 	        </accordion-heading>
 	        
 	        <!-- filter the items list for the current category it, searching in the items groceryCategories ids -->
@@ -124,8 +129,9 @@
 			         <ANY ng-hide="true">{{ groeceryToDoItem = ((currentGroceryToDo.groceryToDoItems | checkItemIdInItems: currentGroceryCategoryItems[i].id)[0]) }}</ANY>
 			         <div class="thumbnail item">
 						
-						<!-- selected model will be matching the check if the current item exist in the current GroceryToDo list which get updated by the toggleToDoItemSelection method that add / delte item to the todo list-->			         	
-						<ANY ng-hide="true">{{selected = (groeceryToDoItem != null)}}</ANY>
+						<!-- the item will be considered selected if the current item exist in the current GroceryToDo list and also the todo item attribute selected=true,
+						that todo item  is updated by the toggleToDoItemSelection method that add / delte item to the todo list-->			         	
+						<ANY ng-hide="true">{{selected = (groeceryToDoItem != null && groeceryToDoItem.selected == true ) }}</ANY>
 						<div class="row">
  					        <div class="col-lg-12 col-md-12" >
 					          <a href="" >
@@ -135,12 +141,13 @@
 						</div>
 						<div class="row">
 					        <div class="col-lg-12 col-md-12">
+					          <!-- approach 1 of selection: send request first, then update ui with selection result second (pros: trusted, cons: delay) -->
 					          <label class="center-block btn media-item-title" ng-model="selected" ng-click="toggleToDoItemSelection(currentGroceryToDo,currentGroceryCategoryItems[i])" btn-checkbox>{{currentGroceryCategoryItems[i].name.ar}}</label>
-					          
-					          <label class="button-checkbox">
+					          <!-- approach 2 of selection: select ui first, then send request, has problem with fast selection (pros: no delay, cons: untrusted) -->
+					          <!-- <label class="center-block button-checkbox">
 					          		<input type="checkbox" ng-checked="selected" ng-model="itemCheckBoxValue" ng-click="toggleToDoItemSelection(currentGroceryToDo,currentGroceryCategoryItems[i])"/>
-								    <span>CLICK ME</span>
-							   </label>
+								    <span>{{currentGroceryCategoryItems[i].name.ar}}</span>
+							   </label> -->
 					        </div>
 					    </div>
 					    <div class="row">
@@ -160,12 +167,7 @@
 							    </label>	
 							</div>
 					    </div>
-				
-				      
 
-						
-						
-						
 				     </div>
 				    
 				  </div>
