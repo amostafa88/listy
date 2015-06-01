@@ -88,13 +88,13 @@ listyControllers.controller('ModalDemoCtrl', function ($scope, $modal, $log) {
 	  $scope.animationsEnabled = true;
 
 	  //open confirmation model:
-	  $scope.openConfirmationModel= function (size, message, todoId) {
+	  $scope.openConfirmationModel= function (size, message,groceryToDoItems) {
 
 		  	$scope.message = message;
 		  	
-		  	$scope.todoId = todoId;
+		  	/*$scope.todoId = todoId;*/
 		  	
-		  	console.log(' > todo id = '+todoId);
+		  	/*console.log(' > todo id = '+todoId);*/
 		  	
 		    var modalInstance = $modal.open({
 		      animation: $scope.animationsEnabled,
@@ -104,9 +104,12 @@ listyControllers.controller('ModalDemoCtrl', function ($scope, $modal, $log) {
 		      resolve: {
 		    	  message: function () {
 		          return message;
-		        },
+		        }/*,
 		          todoId: 	function () {
 			          return todoId;
+			     }*/,
+			     currentGroceryToDo: function () {
+			          return $scope.$parent.currentGroceryToDo;
 			     }
 		    
 		      }
@@ -150,16 +153,31 @@ listyControllers.controller('ModalDemoCtrl', function ($scope, $modal, $log) {
 //Please note that $modalInstance represents a modal window (instance) dependency.
 //It is not the same as the $modal service used above.
 
-listyControllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance,GroceryToDo, message,todoId) {
+listyControllers.controller('ModalInstanceCtrl', function ($scope,$filter, $modalInstance,GroceryToDo, message,currentGroceryToDo) {
 
 	
-	$scope.clearItems = function(todoId){
-		console.log('>> todo id = '+todoId);
+	$scope.clearItems = function(){
+		console.log('>> todo id = '+currentGroceryToDo.id);
 		
 		GroceryToDo.clear(
-				{ todoId: todoId},
+				{ todoId: currentGroceryToDo.id},
 				function(response){
-					console.log('Cleared.');
+					console.log('Cleared in back end.');
+					//now we need to clear it in the browser:
+					//trueitems = ($filter('filter')(groceryToDoItems, {selected : true}) );
+					console.log(currentGroceryToDo.groceryToDoItems.length);
+			       for (var i=0; i< currentGroceryToDo.groceryToDoItems.length; i++){
+			    	    //item = currentGroceryToDo.groceryToDoItems[i]
+			    	    //currentGroceryToDo.groceryToDoItems.splice(currentGroceryToDo.groceryToDoItems.indexOf(item), 1);
+						//then update its selected to false
+						//item.selected = !item.selected;
+						//and then push it back
+						//currentGroceryToDo.groceryToDoItems.push(item);
+			    	   
+			    	   currentGroceryToDo.groceryToDoItems[i].selected=true;
+			        }
+					//console.log(groceryToDoItems);
+					
 				}, function(response) {
 					console.log("Faild to clear items, error json : "+ JSON.stringify(response.data));
 				});
@@ -168,7 +186,7 @@ listyControllers.controller('ModalInstanceCtrl', function ($scope, $modalInstanc
 	$scope.message = message;
 
 	$scope.ok = function () {
-		$modalInstance.close($scope.clearItems(todoId));
+		$modalInstance.close($scope.clearItems());
 	};
 	
 	$scope.cancel = function () {

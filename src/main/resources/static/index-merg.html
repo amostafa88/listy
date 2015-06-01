@@ -101,12 +101,10 @@
 	  
 	  <div class="row" ng-controller="ModalDemoCtrl">
 	  	<div class='col-md-12'>
-			<button class="btn btn-primary" ng-click="openConfirmationModel('sm','message',currentGroceryToDo.id)" style="margin-bottom: 15px;">Clear All</button>
+			<button class="btn btn-primary" ng-click="openConfirmationModel('sm','All selected items will be cleared, conintue?')" style="margin-bottom: 15px;">Clear All</button>
 		</div>
   	  </div>
-  	  
-  	  
- 	  
+
 
 	  <accordion close-others="false">
 	    <accordion-group ng-repeat="category in categories" ng-init="status.open = false" is-open="status.open">

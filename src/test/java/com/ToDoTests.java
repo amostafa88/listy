@@ -45,7 +45,7 @@ public class ToDoTests {
 		
 	}
 
-	@Test
+	//@Test
 	public void selectItemTest() {
 		
 		System.out.println("delete item from a todo list using mongooperation:");
@@ -58,5 +58,11 @@ public class ToDoTests {
 		groceryToDoRepository.addNewItem("556898a7a594394a24390728", todoItem);
 
 		
+	}
+	
+	@Test
+	public void clearSelection(){
+		
+		groceryToDoRepository.clearSelectedItems("556a24c4a5942e9943a19fbd");
 	}
 }
