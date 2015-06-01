@@ -95,11 +95,21 @@
     <!-- ******************************************************************************* -->
     
 	<div class="container" ng-controller="ToDoListCtrl" >
-	<div data-i18n="_Greeting_" style="margin-bottom: 15px;"></div>
 	
+	  <div data-i18n="_Greeting_" style="margin-bottom: 15px;">
+	  </div>
+	  
+	  <div class="row" ng-controller="ModalDemoCtrl">
+	  	<div class='col-md-12'>
+			<button class="btn btn-primary" ng-click="openConfirmationModel('sm','message',currentGroceryToDo.id)" style="margin-bottom: 15px;">Clear All</button>
+		</div>
+  	  </div>
+  	  
+  	  
+ 	  
 
 	  <accordion close-others="false">
-	    <accordion-group ng-repeat="category in categories" ng-init="status.open = true" is-open="status.open">
+	    <accordion-group ng-repeat="category in categories" ng-init="status.open = false" is-open="status.open">
 	  	 
 	      	 <ANY ng-hide="true">{{ countOfSelectedToDoItemsInTheGruop =  (currentGroceryToDo.groceryToDoItems | filter: { groceryCategoryId : category.id, selected : true }).length }}</ANY>
 	      	 

@@ -9,10 +9,7 @@ var listyApp = angular.module('listyApp', [
   'listyServices',
   'listyFilters',
   'ui.bootstrap' //for angularui
-  
 ]);
-
-
 
 
 listyApp.directive('onErrorSrc', function() {

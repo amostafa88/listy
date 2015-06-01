@@ -1,67 +1,72 @@
 <!doctype html>
 <html ng-app="ui.bootstrap.demo">
   <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/> <!-- this will make sure to view the movile version in mobile and tablet version in tablet -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>AngularJS Listy</title>  
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+    
+    <link href="css/style.css" rel="stylesheet">
+    
     <script type="text/javascript" src="lib/angular/angular.min.js"></script>
-    <script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+     <script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+     <script type="text/javascript" src="lib/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>   
+     <script type="text/javascript" src="js/filters.js"></script>	
+        
+      	<script type="text/javascript" src="i18n/angular-locale_ar-sa.js"></script>
+      	<script type="text/javascript" src="lib/localize/localize.js"></script>
+
+ 	    
+
+
   </head>
   <body>
 
 <div class="container" ng-controller="AccordionDemoCtrl">
 
+  	   <div class='row'>
+	    <div class='col-md-12'>
+	      <button class='btn btn-danger' ng-click="launch('error')">Error Dialog</button>
+	      <button class='btn btn-primary' ng-click="launch('wait')">Wait Dialog</button>
+	      <button class='btn btn-default' ng-click="launch('notify')">Notify Dialog</button>
+	      <button class='btn btn-success' ng-click="launch('confirm')">Confirm Dialog</button>
+	      <button class='btn btn-warning' ng-click="launch('custom')">Custom Dialog</button>
+	      <button class='btn btn-warning' ng-click="launch('custom2')">Custom Dialog 2</button>
+	    </div>
+	  </div>
+	  
+	  
+	<div ng-controller="ModalDemoCtrl">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">I'm a modal!</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li ng-repeat="item in items">
+                    <a ng-click="selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
 
-  <accordion close-others="false">
-    <accordion-group heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
-      This content is straight in the template.
-    </accordion-group>
-    <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
-      {{group.content}}
-    </accordion-group>
-    <accordion-group heading="Dynamic Body Content">
-      <p>The body of the accordion group grows to fit the contents</p>
-        <button class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
-        <div ng-repeat="item in items">{{item}}</div>
-    </accordion-group>
-    <accordion-group is-open="status.open">
-        <accordion-heading>
-           <span class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></span>
-            I can have markup, too!
-            <span class="pull-right label label-danger">5</span>
-        </accordion-heading>
-        This is just some content to illustrate fancy headings.
-    </accordion-group>
-  </accordion>
-  
-  
-  <script type="text/javascript">
-  angular.module('ui.bootstrap.demo', ['ui.bootstrap']);
-  angular.module('ui.bootstrap.demo').controller('AccordionDemoCtrl', function ($scope) {
-    $scope.oneAtATime = true;
+    <button class="btn btn-default" ng-click="open()">Open me!</button>
+    <button class="btn btn-default" ng-click="open('lg')">Large modal</button>
+    <button class="btn btn-default" ng-click="open('sm')">Small modal</button>
+    <button class="btn btn-default" ng-click="toggleAnimation()">Toggle Animation ({{ animationsEnabled }})</button>
+    <div ng-show="selected">Selection from a modal: {{ selected }}</div>
+</div>
 
-    $scope.groups = [
-      {
-        title: 'Dynamic Group Header - 1',
-        content: 'Dynamic Group Body - 1'
-      },
-      {
-        title: 'Dynamic Group Header - 2',
-        content: 'Dynamic Group Body - 2'
-      }
-    ];
 
-    $scope.items = ['Item 1', 'Item 2', 'Item 3'];
-
-    $scope.addItem = function() {
-      var newItemNo = $scope.items.length + 1;
-      $scope.items.push('Item ' + newItemNo);
-    };
-
-    $scope.status = {
-      isFirstOpen: true,
-      isFirstDisabled: false
-    };
-  });
-  </script>
 </div>
   </body>
 </html>

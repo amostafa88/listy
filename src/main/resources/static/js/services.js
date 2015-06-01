@@ -70,7 +70,7 @@ var SPECIAL_RELOAD_DB	= 	"/api/ReloadDb";
 		
 	    return $resource(GROCERY_TODO, {}, {
 	    	query: { method: 'GET' , isArray: true },
-	        update: { method: 'PUT', params: {todoId: '@todoId'} },
+	        clear: { method: 'PUT', params: {todoId: '@todoId'} },
 	        del: { method: 'DELETE', params: {todoId: '@todoId'} }
 	    })
 	});

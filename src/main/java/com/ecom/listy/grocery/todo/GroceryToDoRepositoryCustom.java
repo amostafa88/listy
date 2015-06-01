@@ -11,5 +11,5 @@ interface GroceryToDoRepositoryCustom {
 	public void updateItem(String toDoId,GroceryToDoItem groceryToDoItem);
 	
 	
-	public void unSelectItem(String toDoId,String itemId);
+	public void clearSelectedItems(String toDoId);
 }

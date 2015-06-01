@@ -79,6 +79,119 @@ listyControllers.controller('navCtrl', ['$scope', 'localize','Special_Reload',
 }]);
 
 
+
+
+listyControllers.controller('ModalDemoCtrl', function ($scope, $modal, $log) {
+
+	  $scope.items = ['item1', 'item2', 'item3'];
+
+	  $scope.animationsEnabled = true;
+
+	  //open confirmation model:
+	  $scope.openConfirmationModel= function (size, message, todoId) {
+
+		  	$scope.message = message;
+		  	
+		  	$scope.todoId = todoId;
+		  	
+		  	console.log(' > todo id = '+todoId);
+		  	
+		    var modalInstance = $modal.open({
+		      animation: $scope.animationsEnabled,
+		      templateUrl: 'confimration.html',
+		      controller: 'ModalInstanceCtrl',
+		      size: size,
+		      resolve: {
+		    	  message: function () {
+		          return message;
+		        },
+		          todoId: 	function () {
+			          return todoId;
+			     }
+		    
+		      }
+		    });
+
+		    modalInstance.result.then(function (selectedItem) {
+		      $scope.selected = selectedItem;
+		    }, function () {
+		      $log.info('Modal dismissed at: ' + new Date());
+		    });
+		  };
+
+	  //general open  
+	  $scope.open = function (size) {
+
+	    var modalInstance = $modal.open({
+	      animation: $scope.animationsEnabled,
+	      templateUrl: 'confimration.html',
+	      controller: 'ModalInstanceCtrl',
+	      size: size,
+	      resolve: {
+	        items: function () {
+	          return $scope.items;
+	        }
+	      }
+	    });
+
+	    modalInstance.result.then(function (selectedItem) {
+	      $scope.selected = selectedItem;
+	    }, function () {
+	      $log.info('Modal dismissed at: ' + new Date());
+	    });
+	  };
+
+	  $scope.toggleAnimation = function () {
+	    $scope.animationsEnabled = !$scope.animationsEnabled;
+	  };
+
+	});
+
+//Please note that $modalInstance represents a modal window (instance) dependency.
+//It is not the same as the $modal service used above.
+
+listyControllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance,GroceryToDo, message,todoId) {
+
+	
+	$scope.clearItems = function(todoId){
+		console.log('>> todo id = '+todoId);
+		
+		GroceryToDo.clear(
+				{ todoId: todoId},
+				function(response){
+					console.log('Cleared.');
+				}, function(response) {
+					console.log("Faild to clear items, error json : "+ JSON.stringify(response.data));
+				});
+	}
+	
+	$scope.message = message;
+
+	$scope.ok = function () {
+		$modalInstance.close($scope.clearItems(todoId));
+	};
+	
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
+});
+
+
+/*angular.module('ui.bootstrap.demo').controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+
+	  $scope.items = items;
+	  $scope.selected = {
+	    item: $scope.items[0]
+	  };
+
+	  $scope.ok = function () {
+	    $modalInstance.close($scope.selected.item);
+	  };
+
+	  $scope.cancel = function () {
+	    $modalInstance.dismiss('cancel');
+	  };
+	});*/
 /**************************************
  * Back End Handling Controllers
  **************************************
@@ -148,6 +261,7 @@ listyControllers.controller('ToDoListCtrl',
 				//cartItem.comments = "please work";
 				todoItem.groceryItemId = item.groceryItemId;
 				todoItem.groceryCategoryId = item.groceryCategoryId;
+				todoItem.comments = item.comments;
 				console.log("todo item id :"+todoItem.groceryItemId);
 				console.log("todo selected before inverse :"+item.selected);
 				todoItem.selected = !item.selected;

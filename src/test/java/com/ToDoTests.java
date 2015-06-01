@@ -40,7 +40,7 @@ public class ToDoTests {
 		
 		System.out.println("delete item from a todo list using mongooperation:");
 		System.out.println("--------------------------------");
-		groceryToDoRepository.unSelectItem("55675c40a594dac769567f43", "55675c40a594dac769567efc");
+		groceryToDoRepository.clearSelectedItems("55675c40a594dac769567f43");
 
 		
 	}

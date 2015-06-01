@@ -36,32 +36,13 @@ public class GroceryToDoRepositoryImpl implements GroceryToDoRepositoryCustom {
 	    Query findQuery = 
 	    Query.query(new Criteria().andOperator(criteriaV1,criteriaV2));
 		
- 	    //this will update only the selected field to false.
+ 	    //this will update only the "selected" field to true as the default for any newly added fields.
 	    Update update = new Update().set("groceryToDoItems.$.selected", true);
 	    
-	    //groceryToDoItem.setSelected(true);
-	    //Update update = new Update().addToSet("groceryToDoItems",groceryToDoItem);
-	    
-	    // execute the update
-	    //WriteResult wr = mongoOperations.updateFirst(findQuery, update, GroceryToDo.class);
-	    //mongoOperations.findAndModify(findQuery, update, FindAndModifyOptions.options().upsert(true), GroceryToDo.class);
-	    
-	    //first lookup the item on the above critiera if found will be updated, and the return will be the grocery to do item.
-	    //GroceryToDo temp = mongoOperations.findAndModify(findQuery, update, GroceryToDo.class);
-	    //WriteResult wr = mongoOperations.updateFirst(findQuery, update, GroceryToDo.class);
-	    //System.out.println(wr.toString());	    
-	    
-	    //null means that the item not found so we will insert it:
-	    //if (temp == null){
-		    //groceryToDoItem.setSelected(true);
-	    	findQuery = new Query(Criteria.where("id").is(toDoId));
-	    	groceryToDoItem.setSelected(true);
-		    update = new Update().addToSet("groceryToDoItems",groceryToDoItem);
-		    GroceryToDo temp = mongoOperations.findAndModify(findQuery, update, GroceryToDo.class);
-	    //} else {
-	    //	System.out.println("item found");
-	    //}
-	    
+    	findQuery = new Query(Criteria.where("id").is(toDoId));
+    	groceryToDoItem.setSelected(true);
+	    update = new Update().addToSet("groceryToDoItems",groceryToDoItem);
+	    mongoOperations.findAndModify(findQuery, update, GroceryToDo.class);
 	    
 	    return groceryToDoItem;//with the id
 		
@@ -78,38 +59,58 @@ public class GroceryToDoRepositoryImpl implements GroceryToDoRepositoryCustom {
 	    Query.query(new Criteria().andOperator(criteriaV1,criteriaV2));
 		
  	    //this will update only the selected field to false.
-	    System.out.println("the item new status received "+ groceryToDoItem.isSelected());
-	    Update update = new Update().set("groceryToDoItems.$.selected", groceryToDoItem.isSelected());
+	    System.out.println("The item new selected status received as : "+ groceryToDoItem.isSelected());
 	    
-	    //groceryToDoItem.setSelected(true);
-	    //Update update = new Update().addToSet("groceryToDoItems",groceryToDoItem);
+	    //if the item is selected i will update it 
+	    if (groceryToDoItem.isSelected() == true){
+
+	    	Update update = new Update().set("groceryToDoItems.$.selected", groceryToDoItem.isSelected());
+		    
+		    //first lookup the item on the above criteria if found will be updated, if not found do nothing. (item not found case is weird and should not happen).
+		    GroceryToDo temp = mongoOperations.findAndModify(findQuery, update, GroceryToDo.class);
+		    //WriteResult wr = mongoOperations.updateFirst(findQuery, update, GroceryToDo.class);
+		    
+		    //null means that the item not found so we will insert it:
+		    if (temp == null){
+			    //groceryToDoItem.setSelected(true);
+		    	System.out.println("not found to update!!");
+		    } else {
+		    	System.out.println("item found");
+		    }
 	    
-	    // execute the update
-	    //WriteResult wr = mongoOperations.updateFirst(findQuery, update, GroceryToDo.class);
-	    //mongoOperations.findAndModify(findQuery, update, FindAndModifyOptions.options().upsert(true), GroceryToDo.class);
-	    
-	    //first lookup the item on the above critiera if found will be updated, and the return will be the grocery to do item.
-	    GroceryToDo temp = mongoOperations.findAndModify(findQuery, update, GroceryToDo.class);
-	    //WriteResult wr = mongoOperations.updateFirst(findQuery, update, GroceryToDo.class);
-	    //System.out.println(wr.toString());	    
-	    
-	    //null means that the item not found so we will insert it:
-	    if (temp == null){
-		    //groceryToDoItem.setSelected(true);
-	    	System.out.println("not found to update!!");
+		    
 	    } else {
-	    	System.out.println("item found");
+	    	//if the item is unselected, i need to check if the item has valuable information, to keep , 
+	    	//else no point to keep it, i will use the passed object content to check if it is valuable or not.
+    	
+	    	if (!doesItContainValuableInfo(groceryToDoItem)){
+		    	
+		    	Update update = new Update().pull("groceryToDoItems", new BasicDBObject("groceryItemId",groceryToDoItem.getGroceryItemId()) );
+		    	
+		    	WriteResult wr = mongoOperations.updateFirst(findQuery, update, GroceryToDo.class);
+		    	
+		    	System.out.println(wr.toString());
+	    	}
 	    }
-	    
 	    
 	    //return groceryToDoItem;//with the id
 		
 	}
 	
 	
+	boolean doesItContainValuableInfo(GroceryToDoItem groceryToDoItem){
+		System.out.println(groceryToDoItem.getQuantity());
+		System.out.println(groceryToDoItem.getComments());
+		if (groceryToDoItem.getQuantity() != 0 &&
+				groceryToDoItem.getComments() != null && !groceryToDoItem.getComments().trim().equals(""))
+			return true; //contains valuable infomraiton we need to keep.
+		else 
+			return false;
+	}
+	
 	
 	@Override
-	public void unSelectItem(String toDoId,String itemId){
+	public void clearSelectedItems(String toDoId){
 		
 		//get the Cart
 /*		System.out.println("calling .. delete");
@@ -123,9 +124,9 @@ public class GroceryToDoRepositoryImpl implements GroceryToDoRepositoryCustom {
 		///
 		
 	    //find query
-	    // find all the todo and the the item passed as parameter
+	    // find all the todo with id and its item is selected.
 		Criteria criteriaV1 = Criteria.where("id").is(toDoId);
-		Criteria criteriaV2 = Criteria.where("groceryToDoItems.groceryItemId").is(itemId);
+		Criteria criteriaV2 = Criteria.where("groceryToDoItems.selected").is(true);
 		
 	    Query findQuery = 
 	    Query.query(new Criteria().andOperator(criteriaV1,criteriaV2));      
@@ -137,9 +138,16 @@ public class GroceryToDoRepositoryImpl implements GroceryToDoRepositoryCustom {
 	    Update update = new Update().set("groceryToDoItems.$.selected", false);
 	    
 	    // execute the update
-	    WriteResult wr = mongoOperations.updateFirst(findQuery, update, GroceryToDo.class);
-	    System.out.println(wr.toString());
-	    
+	    GroceryToDo temp = mongoOperations.findAndModify(findQuery, update, GroceryToDo.class);
+
+	    //WriteResult wr = mongoOperations.updateFirst(findQuery, update, GroceryToDo.class);
+	    //System.out.println(wr.toString());
+	    if (temp == null){
+		    //groceryToDoItem.setSelected(true);
+	    	System.out.println("not found to clear!!");
+	    } else {
+	    	System.out.println("items cleared");
+	    }
 
 	}
 

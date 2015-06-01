@@ -38,7 +38,6 @@ public class GroceryToDoController {
         return groceryToDoRepository.findAll();
     }
     
-    //@RequestMapping(value="/{id}", method=RequestMethod.GET)
     @RequestMapping(value = GroceryToDoApiUrls.GROCERY_TODO, method = RequestMethod.GET)	
     GroceryToDo get(@PathVariable("todoId") String id) {
     	
@@ -52,7 +51,17 @@ public class GroceryToDoController {
     	}
     	
 	    return groceryToDoRepository.findOne(id);
-    }    
+    }
+    
+    @RequestMapping(value = GroceryToDoApiUrls.GROCERY_TODO, method = RequestMethod.PUT)	
+    public ResponseEntity<Boolean> clearSelectedItems(@PathVariable("todoId") String id) {
+    	
+    	//Clearing selected item from this TODO
+    	System.out.println("Clearing ToDo id : "+ id);
+    	groceryToDoRepository.clearSelectedItems(id);
+    	System.out.println(" Cleared ");
+    	return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+    }       
 
     @RequestMapping(value=GroceryToDoApiUrls.GROCERY_TODO_ITEMS, method=RequestMethod.POST)
     public GroceryToDoItem addToDoItem(@PathVariable("todoId") String id, @RequestBody @Valid GroceryToDoItem groceryToDoItem) {
