@@ -163,20 +163,24 @@ listyControllers.controller('ModalInstanceCtrl', function ($scope,$filter, $moda
 				{ todoId: currentGroceryToDo.id},
 				function(response){
 					console.log('Cleared in back end.');
-					//now we need to clear it in the browser:
-					//trueitems = ($filter('filter')(groceryToDoItems, {selected : true}) );
+			       
 					console.log(currentGroceryToDo.groceryToDoItems.length);
-			       for (var i=0; i< currentGroceryToDo.groceryToDoItems.length; i++){
-			    	    //item = currentGroceryToDo.groceryToDoItems[i]
-			    	    //currentGroceryToDo.groceryToDoItems.splice(currentGroceryToDo.groceryToDoItems.indexOf(item), 1);
-						//then update its selected to false
-						//item.selected = !item.selected;
-						//and then push it back
-						//currentGroceryToDo.groceryToDoItems.push(item);
-			    	   
-			    	   currentGroceryToDo.groceryToDoItems[i].selected=true;
-			        }
-					//console.log(groceryToDoItems);
+					
+					//get the selected item in a new list
+					trueitems = ($filter('filter')(currentGroceryToDo.groceryToDoItems, {selected : true}) );
+					
+					console.log(trueitems.length);
+					
+				       for (var i=0; i< trueitems.length; i++){
+				    	    item = trueitems[i]
+				    	    currentGroceryToDo.groceryToDoItems.splice(currentGroceryToDo.groceryToDoItems.indexOf(item), 1);
+							//then update its selected to false
+							item.selected = false;
+							//and then push it back
+							currentGroceryToDo.groceryToDoItems.push(item);
+				        }
+				       
+				       console.log('Cleared in front end.');
 					
 				}, function(response) {
 					console.log("Faild to clear items, error json : "+ JSON.stringify(response.data));
@@ -218,7 +222,9 @@ listyControllers.controller('ModalInstanceCtrl', function ($scope,$filter, $moda
 listyControllers.controller('ToDoListCtrl', 
 		['$scope','$filter','$resource','GroceryCategory', 'GroceryItem','GroceryToDo','GroceryToDo_Item',
 		 function ($scope,$filter,$resource,GroceryCategory, GroceryItem,GroceryToDo,GroceryToDo_Item) {
+			
 
+		       
 			//##############  init:
 			
 		    $scope.categories = GroceryCategory.query();

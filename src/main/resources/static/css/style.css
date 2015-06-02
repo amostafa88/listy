@@ -166,7 +166,7 @@ background-image: url("imgs/red-basket.jpg");
     -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
             box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);/*no shadows*/
             
-    background: #ff9900; /*checked color*/
+    background: #FF7600; /*checked color*/
    	color:white;
    	border-radius: 0px;
    	
@@ -182,7 +182,7 @@ background-image: url("imgs/red-basket.jpg");
 
 .item-image-selected{
 	/* padding: 2px 2px 2px 2px; */
-	background-color: #ff9900; /* #ff8040 */
+	background-color: #FF7600; /*#ff9900; #ff8040 */
 }
 .item-image-unselected{
 	
@@ -354,5 +354,23 @@ color:#ffff00;
 *	Site - Footer
 *********************
 */
+
+.brand_title{
+    /* letter-spacing: -6px; */
+    font-family:monospace;
+    font-size:22px;
+    color:#555;
+    text-shadow:-1px 0 #fff,
+				0 1px #fff,
+				1px 0 #fff,
+				0 -1px #fff,
+				-2px 0 #fff,
+				0 2px #fff,
+				2px 0 #fff,
+				0 -2px #fff,
+				2px 2px 3px #000;
+}
+
+
 
 

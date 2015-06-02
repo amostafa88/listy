@@ -33,9 +33,10 @@
     <!-- ******************************************************************************* -->
     
     
-   <nav class="navbar navbar-default navbar-static-top" role="navigation" ng-controller="navCtrl" >
+   <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="navCtrl" >
       <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
+      
+      <div class="navbar-header" >
 
         <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
           <span class="sr-only">Toggle navigation</span>
@@ -43,7 +44,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Listy v0.3</a>
+        <a class="navbar-brand brand_title" href="#" style="padding: 10px 10px;"">
+        	<i class="fa fa-list-ol fa-2x" style="color: #d9534f; font-size: 1.5em;"></i>
+        	<!-- Listy 0.3 -->
+        	<!-- <img alt="Brand" src="imgs/listy-bird.png" style="height: 50px;width: 50px;"> -->
+        </a>
+      	
       </div>
     
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -56,7 +62,8 @@
           	<li>
           		<a href="#" ng-click="setArabicLanguage()">العربية</a>
           	</li>
-    	
+
+    		
       		<li dropdown>
             	<a href="#" dropdown-toggle><span class="glyphicon glyphicon-user"><b class="caret"></b></a> 
 	            <ul class="dropdown-menu">
@@ -94,14 +101,39 @@
     <!-- *******************************  App Collapsing Area ****************************** -->
     <!-- ******************************************************************************* -->
     
-	<div class="container" ng-controller="ToDoListCtrl" >
-	
-	  <div data-i18n="_Greeting_" style="margin-bottom: 15px;">
-	  </div>
+	<div class="container" ng-controller="ToDoListCtrl" style="margin-top: 70px;">
+
+	 <!--  <div data-i18n="_Greeting_" style="margin-bottom: 10px;">
+	  </div> -->
+
+			 <nav class="navbar navbar-default navbar-fixed-top container " role="navigation" ng-controller="navCtrl"  style="position:inherit; ;">
+			      <!-- Collect the nav links, forms, and other content for toggling -->
+				  <!-- check if there is any item selected, if yes, enable the clear button. -->
+				  <ANY ng-hide="true">{{ checkSelectedItems =  ( (currentGroceryToDo.groceryToDoItems | filter : {selected : true} ).length == 0) }}</ANY>
+		
+			        <h4 class="center-block row" >
+			          Grocery ToDo 1
+			        </h4>
+			        
+				  <div class="row" ng-controller="ModalDemoCtrl">
+				  
+
+			        <div class='col-md-4 col-lg-4 col-sm-4'>
+			          <text>dd</text>
+			        </div>
+				  	<div class='col-md-4 col-lg-4 col-sm-4'>
+						<button class="btn btn-primary" ng-click="openConfirmationModel('sm','All selected items will be cleared, conintue?')" data-ng-disabled="checkSelectedItems" style="margin-bottom: 15px;">Clear All</button>
+					</div>
+			      </div>
+		    </nav>
+
 	  
+	  
+	  <!-- check if there is any item selected, if yes, enable the clear button. -->
+	  <ANY ng-hide="true">{{ checkSelectedItems =  ( (currentGroceryToDo.groceryToDoItems | filter : {selected : true} ).length == 0) }}</ANY>
 	  <div class="row" ng-controller="ModalDemoCtrl">
 	  	<div class='col-md-12'>
-			<button class="btn btn-primary" ng-click="openConfirmationModel('sm','All selected items will be cleared, conintue?')" style="margin-bottom: 15px;">Clear All</button>
+			<button class="btn btn-primary" ng-click="openConfirmationModel('sm','All selected items will be cleared, conintue?')" data-ng-disabled="checkSelectedItems" style="margin-bottom: 15px;">Clear All</button>
 		</div>
   	  </div>
 
