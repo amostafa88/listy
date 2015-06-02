@@ -214,6 +214,14 @@ listyControllers.controller('ModalInstanceCtrl', function ($scope,$filter, $moda
 	    $modalInstance.dismiss('cancel');
 	  };
 	});*/
+
+
+listyControllers.
+
+controller('ctrl', function ($scope) {
+    $scope.scrollTo = function (target){
+    };
+});
 /**************************************
  * Back End Handling Controllers
  **************************************
@@ -222,7 +230,6 @@ listyControllers.controller('ModalInstanceCtrl', function ($scope,$filter, $moda
 listyControllers.controller('ToDoListCtrl', 
 		['$scope','$filter','$resource','GroceryCategory', 'GroceryItem','GroceryToDo','GroceryToDo_Item',
 		 function ($scope,$filter,$resource,GroceryCategory, GroceryItem,GroceryToDo,GroceryToDo_Item) {
-			
 
 		       
 			//##############  init:

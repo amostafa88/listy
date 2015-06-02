@@ -33,7 +33,7 @@
     <!-- ******************************************************************************* -->
     
     
-   <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="navCtrl" >
+   <nav class="navbar navbar-default navbar-static-top" role="navigation" ng-controller="navCtrl" >
       <!-- Brand and toggle get grouped for better mobile display -->
       
       <div class="navbar-header" >
@@ -106,9 +106,9 @@
 	 <!--  <div data-i18n="_Greeting_" style="margin-bottom: 10px;">
 	  </div> -->
 
-			 <nav class="navbar navbar-default navbar-fixed-top container " role="navigation" ng-controller="navCtrl"  style="position:inherit; ;">
-			      <!-- Collect the nav links, forms, and other content for toggling -->
-				  <!-- check if there is any item selected, if yes, enable the clear button. -->
+<!-- 			 <nav class="navbar navbar-default navbar-fixed-top container " role="navigation" ng-controller="navCtrl"  style="position:inherit; ;">
+			      Collect the nav links, forms, and other content for toggling
+				  check if there is any item selected, if yes, enable the clear button.
 				  <ANY ng-hide="true">{{ checkSelectedItems =  ( (currentGroceryToDo.groceryToDoItems | filter : {selected : true} ).length == 0) }}</ANY>
 		
 			        <h4 class="center-block row" >
@@ -125,7 +125,9 @@
 						<button class="btn btn-primary" ng-click="openConfirmationModel('sm','All selected items will be cleared, conintue?')" data-ng-disabled="checkSelectedItems" style="margin-bottom: 15px;">Clear All</button>
 					</div>
 			      </div>
-		    </nav>
+		    </nav> -->
+
+<div ui-scrollfix="+100" class="yourclass ui-scrollfix">test</div>
 
 	  
 	  

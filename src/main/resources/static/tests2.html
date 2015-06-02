@@ -1,86 +1,40 @@
-<!doctype html>
-<html ng-app="plunker">
-
-  <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
-    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.4.0.js"></script>
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
-  </head>
-  <body>
-<div ng-controller="AccordionDemoCtrl">
-	<div class="panel panel-default">
-	    <div class="panel-body">
-	        <accordion close-others="false">
-	            <accordion-group is-open="item.open" ng-repeat="item in filterGroup | filter:searchText">
-	                <accordion-heading>
-	                    <!-- <input type="checkbox" class="pull-left glyphicon" ng-click="filterHeaderClick(item.title, $event)" ng-model="master" value="{{item.title}}"/> -->
-	                    
-	                    <span class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': item.open, 'glyphicon-chevron-up': !item.open}"></span>
-	                    <span class="pull-left glyphicon glyphicon-chevron-down"></span>
-	                    <span class="glyphicon glyphicon-user">
-	                    {{ item.title }}
-	                    {{ item.open }}
-	                     <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-	                </accordion-heading>
-	                <div ng-repeat="data in item.content">
-	                    <input type="checkbox" class="pull-left glyphicon" ng-click="filterSubitemClick(data, item.title, $event)" ng-checked="master" value="{{data}}" />{{data}}
-	                </div>
-	            </accordion-group>
-	        </accordion>
-	
-	    </div>
-	</div>
-	
-	
-<script>angular.module('plunker', ['ui.bootstrap']);
-function AccordionDemoCtrl($scope) {
-
-
-	$scope.filterGroup = [{
-	    title: "Task Type",
-	    content: ["Task Type 1", "Task Type 2", "Task Type 3", "Task Type 4"],
-	    open: false,
-	    checked: false
-
-	}, {
-	    title: "Connectors",
-	    content: ["c1", "c2"],
-	    open: false,
-	    checked: false
-	}, {
-	    title: "Schedules",
-	    content: ["s1", "s2"],
-	    open: false,
-	    checked: false
-	}, {
-	    title: "Secure Agents",
-	    content: ["a1", "zmr"],
-	    open: false,
-	    checked: false
-	}];
-	
-	}
-
-	angular.module('plunker')
-	.directive('collapseall', [
-	  function() {
-	    return {
-	      restrict: 'A',
-	      scope: {
-	        collapseall: '='
-	      },
-	      link: function(scope, elem, attrs) {
-	        scope.$watch('collapseall', function(newval, oldval) {
-	          scope.isOpen = newval;
-	        })
-	      }
-	    }
-	    
-	  }
-	])</script>
-	
-<script>
-</script>
-</div>
-  </body>
-</html>
+<!DOCTYPE html>  
+ <html>  
+   <head>  
+           <title>On Scroll Fix position - Tutorial</title>  
+           <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>  
+           <script>  
+             // - your scrollFix  
+    $.fn.onScrollFix = function(lrpaddingsum) {  
+         var meTop = $(this).offset().top;  
+         var self = this;  
+         $(window).resize(function(){$(self).width($(self).parent().width()-lrpaddingsum);});  
+         window.onscroll = function(){  
+              return self.each(function() {  
+                   var scTop = ($(window).scrollTop());  
+                   if(parseInt(meTop) - parseInt(scTop) < 0 ){  
+                        $(self).css({"position":"fixed", "top": "0", "width":$(this).parent().width()-lrpaddingsum});  
+                   }  
+                   else if(parseInt(scTop) <= parseInt(meTop)) {  
+                        $(self).css({"position":"absolute", "top": parseInt(meTop) + "px", "width":$(this).parent().width()-lrpaddingsum});  
+                   }  
+              });  
+         }  
+    }  
+      // - jQuery ready  
+           $(function(){  
+                     $("menu").onScrollFix(0);  
+                });            
+           </script>  
+           <style>  
+             body {font-family: verdana; font-size: 10pt; color: rgb(200,200,200); max-width: 320px; margin: 20px auto; height: 2000px; box-shadow: 0px 0px 10px rgb(150,150,150);}  
+             header {height: 300px; text-align: center; background: white; marigin: 0px; padding: 0px;}  
+             menu {background: white; box-shadow: 1px 2px 17px rgb(110,110,110); margin: 0px auto; padding: 0px; width: 320px;}  
+             menu a {display: block; float: left; padding: 1% 2.5% 1% 2.5%; text-decoration: none; color: green; width: 20%; text-align: center;}  
+           </style>  
+      </head>  
+      <body>  
+        <header><h1>OnScrollFix tutorial</h1></header>  
+        <menu><a href="#">1st</a><a href="#">2nd</a><a href="#">3rd</a><a href="#">4th</a><br clear="both" /></menu>  
+      </body>  
+ </html>  

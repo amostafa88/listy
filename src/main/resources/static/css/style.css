@@ -371,6 +371,17 @@ color:#ffff00;
 				2px 2px 3px #000;
 }
 
+.yourclass.ui-scrollfix {
+    position:fixed;
+    top:0;
+}
 
+.navbar-fixed-top {
+    position:absolute;
+    top:100px;
+}
 
-
+.navbar-fixed-top.ui-scrollfix {
+   position: fixed;
+   top:0;
+}
