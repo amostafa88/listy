@@ -4,105 +4,149 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/> <!-- this will make sure to view the movile version in mobile and tablet version in tablet -->
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>AngularJS Listy</title>  
+
+
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
     
     <link href="css/style.css" rel="stylesheet">
     
     <script type="text/javascript" src="lib/angular/angular.min.js"></script>
-		<script type="text/javascript" src="lib/jquery/dist/jquery.js"></script>
+     <script type="text/javascript" src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+     <script type="text/javascript" src="lib/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>   
+     <script type="text/javascript" src="js/filters.js"></script>	
+        
+      	<script type="text/javascript" src="i18n/angular-locale_ar-sa.js"></script>
+      	<script type="text/javascript" src="lib/localize/localize.js"></script>
+
  	    
+ 	
 
 
   </head>
   <body>
-<script>/**
- * Check a href for an anchor. If exists, and in document, scroll to it.
- * If href argument ommited, assumes context (this) is HTML Element,
- * which will be the case when invoked by jQuery after an event
- */
-function scroll_if_anchor(href) {
-    href = typeof(href) == "string" ? href : $(this).attr("href");
-    
-    // You could easily calculate this dynamically if you prefer
-    var fromTop = 50;
-    
-    // If our Href points to a valid, non-empty anchor, and is on the same page (e.g. #foo)
-    // Legacy jQuery and IE7 may have issues: http://stackoverflow.com/q/1593174
-    if(href.indexOf("#") == 0) {
-        var $target = $(href);
+
+<div ng-app="listyApp">
+
+
+
+
+
+<div class="box">
+	<h1>CSS3 shuffled paper effect</h1>
+	<p>This example creates a shuffled paper effect using HTML and CSS3.</p>
+	<p>You simply need to apply a class of "papers" to any element containing content.</p>
+	<p>The paper effects can be modified in the CSS to change the width, padding, margin, color, border, angle of rotation, etc. The background paper is applied using :before and :after pseudo elements.</p>
+	<p>You're welcome to copy or use the code in your own projects. It would be great if you could 
+		link back to <a href="http://www.sitepoint.com/css3-shuffled-paper/">the explanitory article at SitePoint.com</a> or <a href="http://twitter.com/craigbuckler">follow @craigbuckler on Twitter</a>&hellip;</p>
+	<p>I hope you like it!</p>
+
+
+
+       <ul>
+       
+       	<li>test   1</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+<li>test</li>
+       	       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+<li>test</li>
+       	       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+<li>test</li>
+       	       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+<li>test</li>
+       	       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+<li>test</li>
+       	       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+<li>test</li>
+       	       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+       	<li>test</li>
+<li>test</li>
+       	
+       
+       </ul>
         
-        // Older browser without pushState might flicker here, as they momentarily
-        // jump to the wrong position (IE < 10)
-        if($target.length) {
-            $('html, body').animate({ scrollTop: $target.offset().top - fromTop });
-            if(history && "pushState" in history) {
-                history.pushState({}, document.title, window.location.pathname + href);
-                return false;
-            }
-        }
-    }
-}    
-
-// When our page loads, check to see if it contains and anchor
-scroll_if_anchor(window.location.hash);
-
-// Intercept all anchor clicks
-$("body").on("click", "a", scroll_if_anchor);
-
-</script>
-<div ng-app="myapp" ng-controller="ctrl">
-  <nav class="navbar navbar-default navbar-static-top" role="navigation" ng-controller="navCtrl" >
-      <!-- Brand and toggle get grouped for better mobile display -->
-      
-      <div class="navbar-header" >
-
-        <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand brand_title" href="#" style="padding: 10px 10px;"">
-        	<i class="fa fa-list-ol fa-2x" style="color: #d9534f; font-size: 1.5em;"></i>
-        	<!-- Listy 0.3 -->
-        	<!-- <img alt="Brand" src="imgs/listy-bird.png" style="height: 50px;width: 50px;"> -->
-        </a>
-      	
-      </div>
-    
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
-		<!-- user -->
-        <ul class="nav navbar-nav navbar-right">
-          	<li>
-          		<a href="#" ng-click="setEnglishLanguage()">English</a>
-          	</li>
-          	<li>
-          		<a href="#" ng-click="setArabicLanguage()">العربية</a>
-          	</li>
-
-    		
-      		<li dropdown>
-            	<a href="#" dropdown-toggle><span class="glyphicon glyphicon-user"><b class="caret"></b></a> 
-	            <ul class="dropdown-menu">
-	              <li><a href="#" ng-click="reloadDb()">Action (load db)</a></li>
-	              <li><a href="#">Another action</a></li>
-	              <li><a href="#">Something else here</a></li>
-	              <li><a href="#">Separated link</a></li>
-	              <li><a href="#">One more separated link</a></li>
-	            </ul>
-          	</li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </nav>
-<div id="fixed">
-    My fixed bar
-</div>
-
-
-        
-        
+     </div>   
  
 <!-- 
 

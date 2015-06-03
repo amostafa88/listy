@@ -355,33 +355,20 @@ color:#ffff00;
 *********************
 */
 
-.brand_title{
-    /* letter-spacing: -6px; */
-    font-family:monospace;
-    font-size:22px;
-    color:#555;
-    text-shadow:-1px 0 #fff,
-				0 1px #fff,
-				1px 0 #fff,
-				0 -1px #fff,
-				-2px 0 #fff,
-				0 2px #fff,
-				2px 0 #fff,
-				0 -2px #fff,
-				2px 2px 3px #000;
+.controls-fixed{
+  background-color:rgba(0, 0, 0, 0.1); 
+  bottom:0;
+  left:0;
+  /* padding:10px 15px; */
+  /* position:fixed; */
+  top:auto;
+  /* width:100%; */
+  
+
 }
 
-.yourclass.ui-scrollfix {
-    position:fixed;
-    top:0;
-}
 
-.navbar-fixed-top {
-    position:absolute;
-    top:100px;
+.listy_list {
+position: relative;
 }
-
-.navbar-fixed-top.ui-scrollfix {
-   position: fixed;
-   top:0;
-}
+  

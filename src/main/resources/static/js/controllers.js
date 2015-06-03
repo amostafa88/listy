@@ -10,6 +10,7 @@ listyControllers.controller('CollapseDemoCtrl', function ($scope) {
 listyControllers.controller('AccordionDemoCtrl', function ($scope) {
 	
     $scope.oneAtATime = true;
+    
 
     $scope.groups = [
       {
@@ -231,7 +232,8 @@ listyControllers.controller('ToDoListCtrl',
 		['$scope','$filter','$resource','GroceryCategory', 'GroceryItem','GroceryToDo','GroceryToDo_Item',
 		 function ($scope,$filter,$resource,GroceryCategory, GroceryItem,GroceryToDo,GroceryToDo_Item) {
 
-		       
+			 $scope.isAllOpen = false;
+			 $scope.statusopen = false;
 			//##############  init:
 			
 		    $scope.categories = GroceryCategory.query();
