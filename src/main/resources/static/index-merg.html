@@ -191,7 +191,7 @@
 		</div>
   	  </div>
  -->
-	  <accordion close-others="true" >
+	  <accordion close-others="false" >
 	    <accordion-group ng-repeat="category in categories" ng-init="statusopen = false" is-open=statusopen ng-hide="currentGroceryCategoryItems == 0">
 	  	 
 	      	 <ANY ng-hide="true">{{ countOfSelectedToDoItemsInTheGruop =  (currentGroceryToDo.groceryToDoItems | filter: { groceryCategoryId : category.id, selected : true }).length }}</ANY>
