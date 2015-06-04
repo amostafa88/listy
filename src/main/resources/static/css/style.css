@@ -22,6 +22,7 @@ body {
 }
 
 
+
 .navbar {
 /* 	min-height:35px !important;
 	background: #36a5d3;
@@ -30,6 +31,11 @@ body {
     box-shadow:         2px 2px 2px #d9d9d7;
     z-index:999;
     height: 35px; */
+    
+    /* padding: 0px; */
+    margin-bottom: 10px;
+    
+
 	}
 	
 
@@ -372,3 +378,21 @@ color:#ffff00;
 position: relative;
 }
   
+
+/*
+******************************************
+*	Sticky header - ths is use useb by jquery
+******************************************
+*/  
+.header {
+    /* background-color: #eee; */
+    /* background-color:rgba(0, 0, 0, 0.5);  */
+     opacity: .92;
+    padding: 0px;
+    margin-bottom: 10px;
+    
+        -webkit-box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.59);
+-moz-box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.59);
+box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.59);
+}
+

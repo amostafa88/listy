@@ -21,9 +21,51 @@
       	<script type="text/javascript" src="i18n/angular-locale_ar-sa.js"></script>
       	<script type="text/javascript" src="lib/localize/localize.js"></script>
 
- 	    
-
-
+	<!-- to handle the sricky heading -->
+	<script src="lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+	<script src="lib/jquery-scrolltofixed/jquery-scrolltofixed-min.js" type="text/javascript"></script>
+	<script>
+	    $(document).ready(function() {
+	
+	        // Dock the header to the top of the window when scrolled past the banner.
+	        // This is the default behavior.
+	
+	        $('.header').scrollToFixed();
+	
+	
+	        // Dock the footer to the bottom of the page, but scroll up to reveal more
+	        // content if the page is scrolled far enough.
+	
+	        $('.footer').scrollToFixed( {
+	            bottom: 0,
+	            limit: $('.footer').offsettop
+	        });
+	
+	
+	        // Dock each summary as it arrives just below the docked header, pushing the
+	        // previous summary up the page.
+	
+	        var summaries = $('.summary');
+	        summaries.each(function(i) {
+	            var summary = $(summaries[i]);
+	            var next = summaries[i + 1];
+	
+	            summary.scrollToFixed({
+	                marginTop: $('.header').outerHeight(true) + 10,
+	                limit: function() {
+	                    var limit = 0;
+	                    if (next) {
+	                        limit = $(next).offsettop - $(this).outerHeight(true) - 10;
+	                    } else {
+	                        limit = $('.footer').offsettop - $(this).outerHeight(true) - 10;
+	                    }
+	                    return limit;
+	                },
+	                zIndex: 999
+	            });
+	        });
+	    });
+	</script>
   </head>
   
   
@@ -44,8 +86,8 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand brand_title" href="#" style="padding: 10px 10px;"">
-        	<i class="fa fa-list-ol fa-2x" style="color: #d9534f; font-size: 1.5em;"></i>
+        <a class="navbar-brand brand_title" href="#" style="padding: 15px 15px;"">
+        	<i class="fa fa-list-ol fa-2x" style="/* color: #d9534f; */ font-size: 1.5em;"></i>
         	<!-- Listy 0.3 -->
         	<!-- <img alt="Brand" src="imgs/listy-bird.png" style="height: 50px;width: 50px;"> -->
         </a>
@@ -79,27 +121,13 @@
     </nav>
 
     
-	<!--     <div ng-controller="DropdownCtrl">
-
-	    Single button using append-to-body
-	    <div class="btn-group" dropdown dropdown-append-to-body>
-	      <button type="button" class="btn pull-left btn-primary dropdown-toggle" dropdown-toggle>
-	        <span class="glyphicon glyphicon-user"></span><span class="caret"></span>
-	      </button>
-	      <ul class="dropdown-menu" role="menu">
-	        <li><a href="#" ng-click="selectAOption(choice)">Action</a></li>
-	        <li><a href="#" ng-click="selectAOption(choice)">Another action</a></li>
-	        <li><a href="#" ng-click="selectAOption(choice)">Something else here</a></li>
-	        <li class="divider"></li>
-	        <li><a href="#" ng-click="selectAOption(choice)">Separated link</a></li>	        
-	      </ul>
-	    </div>
-
-    	<hr />
-	</div>	 -->
-    
+   
     <!-- *******************************  App Collapsing Area ****************************** -->
     <!-- ******************************************************************************* -->
+    
+
+    
+    
     
 	<div class="container listy_list" ng-controller="ToDoListCtrl">
 
@@ -107,27 +135,49 @@
 	  </div> -->
 
 
-
-<!-- 	 <nav class="navbar navbar-default navbar-fixed-top container " role="navigation" ng-controller="navCtrl"  style="position:inherit; ;">
-			      Collect the nav links, forms, and other content for toggling
+     	 <!-- <nav class="navbar navbar-default navbar-static-top header" role="navigation"> -->
+<!--      	 <div class="navbar navbar-default navbar-static-top header" >
+		      <div class="col-md-4 col-sm-4 col-md-4" >
+		        	
+		      </div>
+		      	  Collect the nav links, forms, and other content for toggling
 				  check if there is any item selected, if yes, enable the clear button.
-				  <ANY ng-hide="true">{{ checkSelectedItems =  ( (currentGroceryToDo.groceryToDoItems | filter : {selected : true} ).length == 0) }}</ANY>
-		
-			        <h4 class="center-block row" >
-			          Grocery ToDo 1
-			        </h4>
-			        
-				  <div class="row" ng-controller="ModalDemoCtrl">
-				  
-
-			        <div class='col-md-4 col-lg-4 col-sm-4'>
-			          <text>dd</text>
-			        </div>
-				  	<div class='col-md-4 col-lg-4 col-sm-4'>
-						<button class="btn btn-primary" ng-click="openConfirmationModel('sm','All selected items will be cleared, conintue?')" data-ng-disabled="checkSelectedItems" style="margin-bottom: 15px;">Clear All</button>
+				  <ANY ng-hide="true">{{ countSelectedItems =  (currentGroceryToDo.groceryToDoItems | filter : {selected : true} ).length  }}</ANY>
+				  <ANY ng-hide="true">{{ checkSelectedItems =  ( countSelectedItems == 0) }}</ANY>
+			    
+		       <div class="col-md-4 col-sm-4 col-md-4" >
+                	<input ng-model="query">
+		       </div>
+		        <div class="col-md-4 col-sm-4 col-md-4" >
+	        		<div class="row" ng-controller="ModalDemoCtrl">
+							<button class="btn btn-primary" ng-click="openConfirmationModel('sm','All selected items will be cleared, conintue?')" data-ng-disabled="checkSelectedItems" style="margin-bottom: 15px;">Clear All</button>
 					</div>
-			      </div>
-		    </nav> -->
+		        </div>
+		</div> -->
+		
+		<!--check if there is any item selected, if yes, enable the clear button. -->
+		<ANY ng-hide="true">{{ countSelectedItems =  (currentGroceryToDo.groceryToDoItems | filter : {selected : true} ).length  }}</ANY>
+		<ANY ng-hide="true">{{ checkSelectedItems =  ( countSelectedItems == 0) }}</ANY>
+			    
+		<nav class="navbar navbar-default header" role="navigation">
+		
+	
+		    <center><h4>
+					 Grocery 1 <span class="label label-danger" ng-if="!checkSelectedItems">{{countSelectedItems}}</span>
+		    </h4> </center> 
+		    <div class="center" style="margin: 5px; padding-bottom: 0px;">
+			    <div>
+			             <input type="text" class="pull-right" placeholder="Search" name="q"  ng-model="query">
+			    </div>  
+	       		 <div ng-controller="ModalDemoCtrl">
+			             <button class="btn btn-primary pull-left" ng-click="openConfirmationModel('sm','All selected items will be cleared, conintue?')" data-ng-disabled="checkSelectedItems" style="margin-bottom: 15px;">Clear All</button>
+			      </div>  
+		    </div>
+	    
+		</nav>
+		
+		 <!-- </nav>  -->
+
 
 
 
@@ -141,11 +191,8 @@
 		</div>
   	  </div>
  -->
-
- {{tooepn = statusopen || isAllOpen }}
-
-	  <accordion close-others="false" >
-	    <accordion-group ng-repeat="category in categories" is-open="tooepn" ng-hide="currentGroceryCategoryItems == 0">
+	  <accordion close-others="true" >
+	    <accordion-group ng-repeat="category in categories" ng-init="statusopen = false" is-open=statusopen ng-hide="currentGroceryCategoryItems == 0">
 	  	 
 	      	 <ANY ng-hide="true">{{ countOfSelectedToDoItemsInTheGruop =  (currentGroceryToDo.groceryToDoItems | filter: { groceryCategoryId : category.id, selected : true }).length }}</ANY>
 	      	 
@@ -229,44 +276,37 @@
 	  	<!-- *******************************  Footer          ****************************** -->
     <!-- ******************************************************************************* -->
     
-	  <!-- Collect the nav links, forms, and other content for toggling
-	  check if there is any item selected, if yes, enable the clear button. -->
-	  <ANY ng-hide="true">{{ countSelectedItems =  (currentGroceryToDo.groceryToDoItems | filter : {selected : true} ).length  }}</ANY>
-	  <ANY ng-hide="true">{{ checkSelectedItems =  ( countSelectedItems == 0) }}</ANY>
-    
 
- 	<div class="navbar navbar-default navbar-fixed-bottom container">
-		<div class="container navbar-bottom-listy">
 
-			<div class="row center-block">
-				<h4 class='col-md-6'>Grocery 1</h4>
-	            <h4 ng-if="!checkSelectedItems" class='col-md-6'>
-				    <span class="pull-left label label-danger">{{countSelectedItems}}</span>
-				</h4>					
-			</div>
-			<div class="row">
-				<div class='col-md-4'>
-					<a href="#" ng-click="isAllOpen = !isAllOpen">
-						<span class="glyphicon" ng-class="{'glyphicon glyphicon-collapse-down': isAllOpen, 'glyphicon glyphicon-collapse-up': !isAllOpen,}"></span>
-					</a>
-				</div>			
-				<div class='col-md-4'>
-					<input ng-model="query">
+<!-- 	 	<div class="navbar navbar-default navbar-fixed-bottom container">
+			<div class="container navbar-bottom-listy">
+	
+				<div class="row center-block">
+					<h4 class='col-md-6'>Grocery 1</h4>
+		            <h4 ng-if="!checkSelectedItems" class='col-md-6'>
+					    <span class="pull-left label label-danger">{{countSelectedItems}}</span>
+					</h4>					
 				</div>
-				<div class='col-md-4'> 
-					<div class="row" ng-controller="ModalDemoCtrl">
-						<button class="btn btn-primary" ng-click="openConfirmationModel('sm','All selected items will be cleared, conintue?')" data-ng-disabled="checkSelectedItems" style="margin-bottom: 15px;">Clear All</button>
+				<div class="row">
+					<div class='col-md-12'>
+						<input ng-model="query">
 					</div>
+					<div class='col-md-12'> 
+						<div class="row" ng-controller="ModalDemoCtrl">
+							<button class="btn btn-primary" ng-click="openConfirmationModel('sm','All selected items will be cleared, conintue?')" data-ng-disabled="checkSelectedItems" style="margin-bottom: 15px;">Clear All</button>
+						</div>
+					</div>
+					
 				</div>
+	  	  </div>
 				
-			</div>
-  	  </div>
-			
-		</div>
+		</div> -->
+		
+		
 	</div> 
 	
 	  
-	</div>
+
 
 
 
