@@ -1,27 +1,25 @@
-/* .navbar-inner{
-    position:relative;
-    padding-left:70px;
-} */
-/* .navbar .brand {
-    margin-left: 0px;
-    font-size: 20px;
-    font-weight: 200;
-    color: #777777;
-    text-shadow: 0 1px 0 #ffffff;
-    position: absolute;
-    width: 50px;
-    background: #f00;
-    left: 0px;
-    top: 0px;
-    padding: 10px;
-}
- */
 body {
 		  font: 400 13px/20px 'Roboto','Helvetica Neue',Helvetica,sans-serif;
 		  line-height: 20px;
+		  
+		  
+background: -webkit-linear-gradient(90deg, rgb(238,238,238) 0.1em, rgba(0,0,0,0) 0.1em), rgb(255, 255, 255);
+background: -moz-linear-gradient(0deg, rgb(238,238,238) 0.1em, rgba(0,0,0,0) 0.1em), rgb(255, 255, 255);
+background: linear-gradient(0deg, rgb(238,238,238) 0.1em, rgba(0,0,0,0) 0.1em), rgb(255, 255, 255);
+background-position: auto auto;
+-webkit-background-origin: padding-box;
+background-origin: padding-box;
+-webkit-background-clip: border-box;
+background-clip: border-box;
+-webkit-background-size: 100% 1.2em;
+background-size: 100% 1.2em;
 }
 
-
+/*
+*********************
+*	Navbar
+*********************
+*/
 
 .navbar {
 /* 	min-height:35px !important;
@@ -70,20 +68,44 @@ background-image: url("imgs/red-basket.jpg");
  */
 }
 
-.panel-default>.panel-heading {
-  color: #333;
-  background-color: #f5f5f5;
-  border-color: #ddd;
-  
-  border-bottom-color: #B23C3C;
+
+
+
+/*
+*********************
+*	Accordion
+*********************
+*/
+.panel{
+	
+	/* border-color: transparent; */
+	
+	/* background-color: transparent; */
+	  -webkit-box-shadow: 0px 2px 2px 0px rgba(50, 50, 50, 0.59);
+		-moz-box-shadow: 0px 2px 2px 0px rgba(50, 50, 50, 0.59);
+		box-shadow: 0px 0px 0px 0px rgba(50, 50, 50, 0.59);
 
 }
+.panel-default>.panel-heading {
+  color: #333;
+  background-color: transparent;
+  border-bottom-color: #B23C3C;
+  /* border-color: transparent; */
+  /* border-bottom-color: #B23C3C; */
+  
+}
+
+
 .panel-group .panel-heading {
-   border-bottom: ;
+
+   background-color: transparent;
+   
+   
 }
 .panel-default>.panel-heading+.panel-collapse>.panel-body {
   border-top-color: #B23C3C;
- 
+  background-color: transparent;
+
 }
 /*
 *********************
@@ -114,21 +136,25 @@ background-image: url("imgs/red-basket.jpg");
 .item { 
 	/* float:left;  */
 	
-	margin-left: auto;
+
+}
+
+.thumbnail{
+/* 	margin-left: auto;
     margin-right: auto;
-	
+ */	
 
 	width:120;
 	/* height: 55px; */
 	
-	background:rgba(42, 17, 17, 0.04); 
+	background:#f9f9f9; 
 	border: 1px solid #c0c0c0;
-	border-radius: 2px;
+	border-radius: 5px;
 	padding:0;
 	
 	vertical-align : middle;
 	
-	overflow:hidden; /* clearfix */ 
+	/* overflow:hidden; */ /* clearfix */ 
 	
 	 -webkit-box-shadow: 2px 2px 2px #d9d9d7;
     -moz-box-shadow:    2px 2px 2px #d9d9d7;
@@ -381,18 +407,20 @@ position: relative;
 
 /*
 ******************************************
-*	Sticky header - ths is use useb by jquery
+*	Sticky header - this is use used by jquery sticky header
 ******************************************
 */  
 .header {
     /* background-color: #eee; */
     /* background-color:rgba(0, 0, 0, 0.5);  */
-     opacity: .92;
+    
+    background-color:#ffb16a;
+    opacity: .90;
     padding: 0px;
     margin-bottom: 10px;
     
         -webkit-box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.59);
--moz-box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.59);
-box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.59);
+		-moz-box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.59);
+		box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.59);
 }
 
